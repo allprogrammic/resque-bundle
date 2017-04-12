@@ -15,11 +15,35 @@ use AllProgrammic\Component\Resque\Worker;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class QueuesController extends Controller
+class FailuresController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return $this->render('AllProgrammicResqueBundle:queues:index.html.twig');
+        $failedSize = $this->get('resque')->getFailure()->count();
+        $jobPerPage = 25;
+        $offset = $request->query->get('start', 0);
+
+        if ($offset > $failedSize) {
+            $offset = $failedSize - $jobPerPage;
+        }
+
+        $count = $jobPerPage;
+        $maxOffset = $offset + $count;
+        if ($maxOffset > $failedSize) {
+            $count -= $maxOffset - $failedSize;
+        }
+
+        $jobs = $this->get('resque')->getFailure()->peek(
+            $offset,
+            $count
+        );
+
+        return $this->render('AllProgrammicResqueBundle:failures:index.html.twig', [
+            'failure_size' =>  $failedSize,
+            'failure_start_at' => $offset + 1,
+            'failure_end_at' => $offset + $count,
+            'jobs' => $jobs,
+        ]);
     }
 
     public function viewAction(Request $request, $id)
@@ -54,18 +78,4 @@ class QueuesController extends Controller
         ]);
     }
 
-    public function queuesAction()
-    {
-        $resque = $this->get('resque');
-
-        $queues = [];
-        foreach ($resque->queues() as $queue) {
-            $queues[$queue] = $resque->size($queue);
-        }
-
-        return $this->render('AllProgrammicResqueBundle:queues:_queues.html.twig', [
-            'queues' => $queues,
-            'failedSize' => $resque->getFailure()->count(),
-        ]);
-    }
 }

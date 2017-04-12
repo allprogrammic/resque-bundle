@@ -23,22 +23,22 @@
                 <a href="{{ path('resque_overview') }}" class="brand navbar-brand">Resque</a>
                 <div class="nav-collapse navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li{% block link_overview_attr %}{% endblock %}>
                             <a href="{{ path('resque_overview') }}">Overview</a>
                         </li>
-                        <li>
+                        <li{% block link_working_attr %}{% endblock %}>
                             <a href="{{ path('resque_working') }}">Working</a>
                         </li>
-                        <li>
-                            <a href="{{ path('resque_overview') }}">Failures</a>
+                        <li{% block link_failures_attr %}{% endblock %}>
+                            <a href="{{ path('resque_failures') }}">Failures</a>
                         </li>
-                        <li>
+                        <li{% block link_queues_attr %}{% endblock %}>
                             <a href="{{ path('resque_queues') }}">Queues</a>
                         </li>
-                        <li>
+                        <li{% block link_workers_attr %}{% endblock %}>
                             <a href="{{ path('resque_overview') }}">Workers</a>
                         </li>
-                        <li>
+                        <li{% block link_stats_attr %}{% endblock %}>
                             <a href="{{ path('resque_overview') }}">Stats</a>
                         </li>
                     </ul>
@@ -54,7 +54,7 @@
     <footer id="footer">
         <div class="container">
             <p>Powered by <a href="http://github.com/resque/resque">Resque</a></p>
-            <p>Connected to Redis namespace <%= Resque.redis.namespace %> on <%=Resque.redis_id%></p>
+            <p>Connected to Redis namespace {{ resque_namespace() }} on {{ resque_server() }}</p>
         </div>
     </footer>
 

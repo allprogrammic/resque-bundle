@@ -1,5 +1,7 @@
 {% extends 'AllProgrammicResqueBundle::layout.html.twig' %}
 
+{% block link_queues_attr %} class="active"{% endblock %}
+
 {% block content %}
 <h1>Pending jobs on <span class='hl'>{{ queueId }}</span></h1>
 
@@ -12,7 +14,7 @@
     {% for job in jobs %}
         <tr>
             <td class='class'>{{ job.class }}<br /><small>{{ job.queue_time|date }}</small></td>
-            <td class='args'>{{ job.args|inspect }}</td>
+            <td class='args'>{{ job.args|resque_inspect }}</td>
         </tr>
     {% else %}
         <tr>

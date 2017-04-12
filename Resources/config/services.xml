@@ -39,6 +39,8 @@
         </service>
 
         <service id="resque.twig_extension" class="AllProgrammic\Bundle\ResqueBundle\Twig\ResqueExtension" public="false">
+            <argument>%resque_redis_dsn%</argument>
+            <argument>%resque_redis_prefix%</argument>
             <tag name="twig.extension" />
         </service>
     </services>

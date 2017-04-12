@@ -20,4 +20,8 @@
         <default key="_controller">AllProgrammicResqueBundle:Queues:view</default>
     </route>
 
+    <route id="resque_failures" path="/failures/">
+        <default key="_controller">AllProgrammicResqueBundle:Failures:index</default>
+    </route>
+
 </routes>

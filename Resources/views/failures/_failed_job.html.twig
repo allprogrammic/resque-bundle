@@ -1,0 +1,51 @@
+<li>
+    <dl>
+        {% if job is null %}
+        <dt>Error</dt>
+        <dd>Job {{ id }} could not be parsed; perhaps it contains invalid JSON?</dd>
+        {% else %}
+        <dt>Worker</dt>
+        <dd>
+            {{ job.worker|split(':')|slice(0, 2)|join(':') }}
+            on <b class="label label-info">{{ job.queue }}</b >
+            at <b><span class="time">{{ job.failed_at|date }}</span></b>
+
+            {% if job.retried_at is defined %}
+            <div class="retried">
+                Retried <b><span class="time"><%= Time.parse(job['retried_at']).strftime(failure_date_format) %></span></b>
+                <%= link_to "Remove", failure_path(:queue=>failure_queue,:id=>id), :method => :delete, :class => 'remove', :rel => 'remove' %>
+            </div>
+            {% else %}
+            <div class="controls">
+                <%= link_to "Retry", retry_failure_path(:queue=>failure_queue,:id=>id), :method => :put %>
+                or
+                <%= link_to "Remove", failure_path(:queue=>failure_queue,:id=>id), :method => :delete %>
+            </div>
+            {% endif %}
+        </dd>
+        <dt>Class</dt>
+        <dd>
+            {% if job.payload is defined and job.payload.class is defined %}
+            <code>{{ job.payload.class }}</code>
+            {% else %}
+            <code>nil</code>
+            {% endif %}
+        </dd>
+        <dt>Arguments</dt>
+        <dd>{{ job.payload.args|default(null)|resque_inspect }}</dd>
+        <dt>Exception</dt>
+        <dd><code>{{ job.exception }}</code></dd>
+        <dt>Error</dt>
+        <dd class="error">
+            {% if job.backtrace is defined and job.backtrace is not empty %}
+            <a href="#" class="backtrace">{{ job.error }}</a>
+            <pre style='display:none'>{{ job.backtrace|join("\r") }}</pre>
+            {% else %}
+            {{ job.error }}
+            {% endif %}
+        </dd>
+        {% endif %}
+    </dl>
+    <div class="r">
+    </div>
+</li>

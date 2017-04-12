@@ -1,11 +1,9 @@
 {% extends 'AllProgrammicResqueBundle::layout.html.twig' %}
 
+{% block link_overview_attr %} class="active"{% endblock %}
+
 {% block content %}
-
     {{ render(controller('AllProgrammicResqueBundle:Queues:queues')) }}
-
     <hr />
-
     {{ render(controller('AllProgrammicResqueBundle:Working:working')) }}
-
 {% endblock %}

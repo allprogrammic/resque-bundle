@@ -1,5 +1,7 @@
 {% extends 'AllProgrammicResqueBundle::layout.html.twig' %}
 
+{% block link_working_attr %} class="active"{% endblock %}
+
 {% block content %}
     {{ render(controller('AllProgrammicResqueBundle:Working:working')) }}
 {% endblock %}
