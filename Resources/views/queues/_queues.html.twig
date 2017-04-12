@@ -1,0 +1,21 @@
+<h1>Queues</h1>
+<p class="intro">The list below contains all the registered queues with the number of jobs currently in the queue. Select a queue from above to view all jobs currently pending on the queue.</p>
+
+<table class="table table-bordered queues">
+    <tr>
+        <th>Name</th>
+        <th>Jobs</th>
+    </tr>
+
+    {% for queue, size in queues %}
+        <tr>
+            <td class="queue"><a href="{{ path('resque_queues_view', {id: queue}) }}">{{ queue }}</a></td>
+            <td class="size">{{ size }}</td>
+        </tr>
+    {% endfor %}
+
+    <tr class="{{ failedSize > 0 ? 'failure' : 'failed' }} first_failure">
+        <td class="queue failed"><a href="#" class="queue">failed</a></td>
+        <td class="size">{{ failedSize }}</td>
+    </tr>
+</table>

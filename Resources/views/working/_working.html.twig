@@ -1,0 +1,37 @@
+<h1 class="wi">{{ working_workers|length }} of {{ workers|length }} Workers Working</h1>
+<p class="intro">The list below contains all workers which are currently running a job.</p>
+<table class="table table-bordered workers">
+    <tr>
+        <th>&nbsp;</th>
+        <th>Where</th>
+        <th>Queue</th>
+        <th>Processing</th>
+    </tr>
+    {% for worker in workers %}
+        <tr>
+            <td class="icon">
+                <img src="{{ asset('bundles/allprogrammicresque/images/' ~ (worker.idle ? 'idle' : 'working') ~ '.png') }}" alt="" />
+            </td>
+            <td class="where">
+                <a href="#">{{ worker.host }}:{{ worker.pid }}</a>
+            </td>
+            <td class="queues queue">
+                {% for queue in worker.queues %}
+                    <a href="#" class="label label-info">{{ queue }}</a>
+                {% endfor %}
+            </td>
+            <td class="process">
+                {% if working_workers[worker.id] is defined %}
+                    <code>{{ working_workers[worker.id].job.payload.class }}<br />{{ working_workers[worker.id].job.payload.args|join(',') }}</code>
+                    <small>{{ working_workers[worker.id].job.run_at }}</small>
+                {% else %}
+                    <span class="waiting">Waiting for a job...</span>
+                {% endif %}
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4" class="no-data">Nothing is happening right now...</td>
+        </tr>
+    {% endfor %}
+</table>

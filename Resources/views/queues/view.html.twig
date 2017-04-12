@@ -1,0 +1,33 @@
+{% extends 'AllProgrammicResqueBundle::layout.html.twig' %}
+
+{% block content %}
+<h1>Pending jobs on <span class='hl'>{{ queueId }}</span></h1>
+
+<p class="sub">Showing {{ startAt }} to {{ endAt }} of <b>{{ size }}</b> jobs</p>
+<table class="table table-bordered jobs">
+    <tr>
+        <th>Class</th>
+        <th>Args</th>
+    </tr>
+    {% for job in jobs %}
+        <tr>
+            <td class='class'>{{ job.class }}<br /><small>{{ job.queue_time|date }}</small></td>
+            <td class='args'>{{ job.args|inspect }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td class='no-data' colspan='2'>There are no pending jobs in this queue</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<div class="clearfix">
+{% if startAt > 1 %}
+  <a href="{{ path('resque_queues_view', {id: queueId, start: previous }) }}" class="pull-left">« Previous</a>
+{% endif %}
+
+{% if endAt < size %}
+    <a href="{{ path('resque_queues_view', {id: queueId, start: endAt }) }}" class="pull-right">Next »</a>
+{% endif %}
+</div>
+{% endblock %}

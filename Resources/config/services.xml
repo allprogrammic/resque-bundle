@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="resque" class="AllProgrammic\Component\Resque\Engine">
+            <argument type="service" id="resque.redis.backend" />
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="service_container" />
+            <argument type="service" id="resque.stat" />
+            <argument type="service" id="resque.status.manager" />
+            <argument type="service" id="resque.failure" />
+            <argument type="service" id="logger" on-invalid="null" />
+        </service>
+
+        <service id="resque.status.manager" class="AllProgrammic\Component\Resque\Job\Status">
+            <argument type="service" id="resque.redis.backend" />
+        </service>
+
+        <service id="resque.stat" class="AllProgrammic\Component\Resque\Stat">
+            <argument type="service" id="resque.redis.backend" />
+        </service>
+
+        <service id="resque.failure" class="AllProgrammic\Component\Resque\Failure\Redis">
+            <argument type="service" id="resque.redis.backend" />
+        </service>
+
+        <service id="resque.redis.backend" class="AllProgrammic\Component\Resque\Redis">
+            <argument>%resque_redis_dsn%</argument>
+            <argument>resque:</argument>
+        </service>
+
+        <service id="resque.twig_extension" class="AllProgrammic\Bundle\ResqueBundle\Twig\ResqueExtension" public="false">
+            <tag name="twig.extension" />
+        </service>
+    </services>
+</container>

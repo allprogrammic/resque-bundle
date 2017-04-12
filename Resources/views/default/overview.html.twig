@@ -1,0 +1,11 @@
+{% extends 'AllProgrammicResqueBundle::layout.html.twig' %}
+
+{% block content %}
+
+    {{ render(controller('AllProgrammicResqueBundle:Queues:queues')) }}
+
+    <hr />
+
+    {{ render(controller('AllProgrammicResqueBundle:Working:working')) }}
+
+{% endblock %}
