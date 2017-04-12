@@ -30,6 +30,8 @@ class ResqueExtension extends Extension
         $loader->load('services.xml');
 
         // Load config
+        $container->setParameter('resque_worker_sleeping', $config['worker']['sleeping']);
+
         $container->setParameter('resque_redis_dsn', $config['redis']['dsn']);
         $container->setParameter('resque_redis_prefix', $config['redis']['prefix']);
     }

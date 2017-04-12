@@ -29,7 +29,7 @@ class WorkerCommand extends ContainerAwareCommand
                 new InputArgument('queues', InputArgument::REQUIRED, 'queues (comma separated)'),
                 new InputOption('count', null, InputOption::VALUE_OPTIONAL, 'number of worker to start', 1),
                 new InputOption('blocking', null, InputOption::VALUE_OPTIONAL, 'use blocking mode', false),
-                new InputOption('interval', null, InputOption::VALUE_OPTIONAL, 'interval', 5),
+                new InputOption('interval', null, InputOption::VALUE_OPTIONAL, 'interval', null),
                 new InputOption('pidfile', null, InputOption::VALUE_OPTIONAL, 'pidfile', null),
             ])
         ;
@@ -41,6 +41,10 @@ class WorkerCommand extends ContainerAwareCommand
         $interval = $input->getOption('interval');
         $blocking = $input->getOption('blocking');
         $pidfile = $input->getOption('pidfile');
+
+        if (is_null($interval)) {
+            $interval = $this->getContainer()->getParameter('resque_worker_sleeping');
+        }
 
         if ($pidfile && false === file_put_contents($pidfile, getmypid())) {
             throw new \RuntimeException(sprintf('Could not write PID information to %s', $pidfile));

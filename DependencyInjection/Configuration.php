@@ -25,6 +25,12 @@ class Configuration implements ConfigurationInterface
         $nodeBuilder = $treeBuilder->root('resque')->addDefaultsIfNotSet()->children();
 
         $nodeBuilder
+            ->arrayNode('worker')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('sleeping')->defaultValue(5)->end()
+                ->end()
+            ->end()
             ->arrayNode('redis')
                 ->addDefaultsIfNotSet()
                 ->children()
