@@ -11,8 +11,17 @@
 
 namespace AllProgrammic\Bundle\ResqueBundle;
 
+use AllProgrammic\Bundle\ResqueBundle\DependencyInjection\ResqueExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class AllProgrammicResqueBundle extends Bundle
 {
+    public function getContainerExtension()
+    {
+        if (null === $this->extension) {
+            $this->extension = new ResqueExtension();
+        }
+
+        return $this->extension;
+    }
 }

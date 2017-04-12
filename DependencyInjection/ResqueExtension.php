@@ -16,7 +16,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-class AllProgrammicResqueExtension extends Extension
+class ResqueExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -28,5 +28,9 @@ class AllProgrammicResqueExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        // Load config
+        $container->setParameter('resque_redis_dsn', $config['redis']['dsn']);
+        $container->setParameter('resque_redis_prefix', $config['redis']['prefix']);
     }
 }

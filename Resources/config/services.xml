@@ -4,6 +4,11 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="resque_redis_dsn">redis://127.0.0.1:6379/0</parameter>
+        <parameter key="resque_redis_prefix">resque:</parameter>
+    </parameters>
+
     <services>
         <service id="resque" class="AllProgrammic\Component\Resque\Engine">
             <argument type="service" id="resque.redis.backend" />
@@ -29,7 +34,7 @@
 
         <service id="resque.redis.backend" class="AllProgrammic\Component\Resque\Redis">
             <argument>%resque_redis_dsn%</argument>
-            <argument>resque:</argument>
+            <argument>%resque_redis_prefix%</argument>
         </service>
 
         <service id="resque.twig_extension" class="AllProgrammic\Bundle\ResqueBundle\Twig\ResqueExtension" public="false">

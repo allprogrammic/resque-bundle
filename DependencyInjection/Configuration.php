@@ -22,11 +22,16 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('resque');
+        $nodeBuilder = $treeBuilder->root('resque')->addDefaultsIfNotSet()->children();
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $nodeBuilder
+            ->arrayNode('redis')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('dsn')->isRequired()->end()
+                    ->scalarNode('prefix')->defaultValue('resque:')->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }
