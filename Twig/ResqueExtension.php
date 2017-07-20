@@ -54,6 +54,9 @@ class ResqueExtension extends \Twig_Extension
         $dump = fopen('php://memory', 'r+b');
 
         $dumper = new HtmlDumper($dump);
+        $dumper->setStyles([
+            'default' => 'background-color:#18171B; color:#FF8400; line-height:1.2em; font:12px Menlo, Monaco, Consolas, monospace; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:0; word-break: normal',
+        ]);
         $dumper->dump($this->cloner->cloneVar($value));
 
         rewind($dump);
