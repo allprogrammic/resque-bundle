@@ -4,6 +4,9 @@
 
 {% block content %}
     <h1 class="wi">Resque</h1>
+    {{ render(controller('AllProgrammicResqueBundle:Stats:info')) }}
+
+    <h1 class="wi">Redis</h1>
     <table class="table table-bordered stats">
         {% for key, value in infos %}
             <tr>

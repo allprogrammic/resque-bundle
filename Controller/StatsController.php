@@ -17,12 +17,29 @@ use Symfony\Component\HttpFoundation\Request;
 
 class StatsController extends Controller
 {
+    /**
+     * Index action
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction(Request $request)
     {
-        $infos = $this->get('resque')->getBackend();
+        $redis = $this->get('resque')->getBackend();
 
         return $this->render('AllProgrammicResqueBundle:stats:index.html.twig', [
-            'infos' => $infos->info()
+            'infos' => $redis->info(),
+        ]);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function infoAction()
+    {
+        return $this->render('AllProgrammicResqueBundle:stats:info.html.twig', [
+            'infos' => $this->get('resque')->getInfos()
         ]);
     }
 }

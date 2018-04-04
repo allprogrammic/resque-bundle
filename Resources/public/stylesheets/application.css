@@ -68,7 +68,6 @@ ul {
 .container h1.wi { margin-bottom:5px;}
 .container p.sub { font-size:95%; color:#999;}
 
-.container table.queues { width:40%;}
 .container table.queues td.queue { font-weight:bold; width:50%;}
 .container table.queues tr.failure td { background:#ffecec; color:#d37474;}
 .container table.queues tr.failure td a{ color:#d37474;}
@@ -102,7 +101,7 @@ ul {
 .container p.poll { background:url('../images/poll.png') no-repeat 0 2px; padding:3px 0; padding-left:23px; float:right; font-size:85%; }
 
 
-.container ul.failed {margin-top: 20px;margin-bottom: 0; }
+.container ul.failed {margin-top: 20px;margin-botto}
 .container ul.failed li {
     background: #efefef; /* Old browsers */
     background: -moz-linear-gradient(top, #efefef 0%, #fff 100%); /* FF3.6+ */
