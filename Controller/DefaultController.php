@@ -17,9 +17,6 @@ class DefaultController extends Controller
 {
     public function overviewAction()
     {
-        // Prune dead workers
-        $this->get('resque')->pruneDeadWorkers();
-
         return $this->render('AllProgrammicResqueBundle:default:overview.html.twig');
     }
 }
