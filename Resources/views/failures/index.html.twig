@@ -5,8 +5,7 @@
 {% block content %}
 <h1>All Failure Queues</h1>
 
-
-<p class="sub">Showing {{ failure_start_at }} to {{ failure_end_at }}  of <b>{{ failure_size }}</b> jobs</p>
+<p class="sub">Showing {{ pager.currentFrom }} to {{ pager.currentCount }} of <b>{{ pager.count }}</b> jobs</p>
 
 <ul class="failed">
     {% for id, job in jobs %}
@@ -14,5 +13,6 @@
     {% endfor %}
 </ul>
 
-<%= pagination(start: failure_start_at, total: failure_size) unless params[:class] %>
+{{ pagination(pager, 'resque_failures') }}
+
 {% endblock %}

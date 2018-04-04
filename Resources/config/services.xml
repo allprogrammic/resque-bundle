@@ -8,6 +8,7 @@
         <parameter key="resque_worker_sleeping">5</parameter>
         <parameter key="resque_redis_dsn">redis://127.0.0.1:6379/0</parameter>
         <parameter key="resque_redis_prefix">resque:</parameter>
+        <parameter key="resque_pagination_default_view">AllProgrammicResqueBundle:pagination:default.html.twig</parameter>
     </parameters>
 
     <services>
@@ -41,6 +42,11 @@
         <service id="resque.twig_extension" class="AllProgrammic\Bundle\ResqueBundle\Twig\ResqueExtension" public="false">
             <argument>%resque_redis_dsn%</argument>
             <argument>%resque_redis_prefix%</argument>
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="pagination.twig_extension" class="AllProgrammic\Bundle\ResqueBundle\Twig\PaginationExtension" public="false">
+            <argument>%resque_pagination_default_view%</argument>
             <tag name="twig.extension" />
         </service>
     </services>
