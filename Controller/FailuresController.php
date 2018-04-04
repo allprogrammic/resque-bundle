@@ -11,6 +11,8 @@
 
 namespace AllProgrammic\Bundle\ResqueBundle\Controller;
 
+use AllProgrammic\Bundle\ResqueBundle\Pagination\Paginator;
+use AllProgrammic\Component\Resque\Job;
 use AllProgrammic\Component\Resque\Worker;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,30 +21,18 @@ class FailuresController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $failedSize = $this->get('resque')->getFailure()->count();
-        $jobPerPage = 25;
-        $offset = $request->query->get('start', 0);
+        $page = $request->query->get('page', 1);
 
-        if ($offset > $failedSize) {
-            $offset = $failedSize - $jobPerPage;
-        }
-
-        $count = $jobPerPage;
-        $maxOffset = $offset + $count;
-        if ($maxOffset > $failedSize) {
-            $count -= $maxOffset - $failedSize;
-        }
-
-        $jobs = $this->get('resque')->getFailure()->peek(
-            $offset,
-            $count
-        );
+        // Create new paginator
+        $pager = new Paginator($this->get('resque')->getFailure());
+        $jobs  = $pager
+            ->setMaxPerPage(15)
+            ->setCurrentPage($page)
+            ->getCurrentPageResults();
 
         return $this->render('AllProgrammicResqueBundle:failures:index.html.twig', [
-            'failure_size' =>  $failedSize,
-            'failure_start_at' => $offset + 1,
-            'failure_end_at' => $offset + $count,
-            'jobs' => $jobs,
+            'pager' => $pager,
+            'jobs'  => $jobs,
         ]);
     }
 
@@ -78,4 +68,44 @@ class FailuresController extends Controller
         ]);
     }
 
+    /**
+     * Reload action
+     *
+     * @param Request $request
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function reloadAction(Request $request, $id)
+    {
+        $job = $this->get('resque')->getBackend()->lIndex('failed', $id);
+
+        if ($job) {
+            $job = json_decode($job, true);
+            $job = new Job($job['queue'], $job['payload']);
+            $this->get('resque')->recreateJob($job);
+        }
+
+        return $this->redirectToRoute('resque_overview');
+    }
+
+    /**
+     * Remove action
+     *
+     * @param Request $request
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeAction(Request $request, $id)
+    {
+        $job = $this->get('resque')->getBackend()->lIndex('failed', $id);
+
+        if ($job) {
+            $this->get('resque')->getBackend()->lSet('failed', $id, 'DELETE');
+            $this->get('resque')->getBackend()->lRem('failed', $id, 'DELETE');
+        }
+
+        return $this->redirectToRoute('resque_overview');
+    }
 }

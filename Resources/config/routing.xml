@@ -24,4 +24,12 @@
         <default key="_controller">AllProgrammicResqueBundle:Failures:index</default>
     </route>
 
+    <route id="resque_failures_reload" path="/failures/{id}/reload">
+        <default key="_controller">AllProgrammicResqueBundle:Failures:reload</default>
+    </route>
+
+    <route id="resque_failures_remove" path="/failures/{id}/remove">
+        <default key="_controller">AllProgrammicResqueBundle:Failures:remove</default>
+    </route>
+
 </routes>
