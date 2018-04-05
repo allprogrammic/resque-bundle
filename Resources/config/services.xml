@@ -8,6 +8,7 @@
         <parameter key="resque_worker_sleeping">5</parameter>
         <parameter key="resque_redis_dsn">redis://127.0.0.1:6379/0</parameter>
         <parameter key="resque_redis_prefix">resque:</parameter>
+        <parameter key="resque_pagination_default_view">AllProgrammicResqueBundle:pagination:default.html.twig</parameter>
     </parameters>
 
     <services>
@@ -18,6 +19,7 @@
             <argument type="service" id="resque.stat" />
             <argument type="service" id="resque.status.manager" />
             <argument type="service" id="resque.failure" />
+            <argument type="service" id="resque.delayed" />
             <argument type="service" id="logger" on-invalid="null" />
         </service>
 
@@ -33,6 +35,10 @@
             <argument type="service" id="resque.redis.backend" />
         </service>
 
+        <service id="resque.delayed" class="AllProgrammic\Component\Resque\Delayed\Redis">
+            <argument type="service" id="resque.redis.backend" />
+        </service>
+
         <service id="resque.redis.backend" class="AllProgrammic\Component\Resque\Redis">
             <argument>%resque_redis_dsn%</argument>
             <argument>%resque_redis_prefix%</argument>
@@ -41,6 +47,11 @@
         <service id="resque.twig_extension" class="AllProgrammic\Bundle\ResqueBundle\Twig\ResqueExtension" public="false">
             <argument>%resque_redis_dsn%</argument>
             <argument>%resque_redis_prefix%</argument>
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="pagination.twig_extension" class="AllProgrammic\Bundle\ResqueBundle\Twig\PaginationExtension" public="false">
+            <argument>%resque_pagination_default_view%</argument>
             <tag name="twig.extension" />
         </service>
     </services>

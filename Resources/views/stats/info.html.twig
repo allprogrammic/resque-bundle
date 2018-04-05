@@ -1,0 +1,16 @@
+<table class="table table-bordered stats">
+    <tr>
+        <th>Namespace</th>
+        <td>{{ resque_namespace() }}</td>
+    </tr>
+    <tr>
+        <th>Server</th>
+        <td>{{ resque_server() }}</td>
+    </tr>
+    {% for key, value in infos %}
+        <tr>
+            <th>{{ key }}</th>
+            <td>{{ value }}</td>
+        </tr>
+    {% endfor %}
+</table>

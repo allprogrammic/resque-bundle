@@ -7,6 +7,11 @@ body {
     padding-top: 40px;
 }
 
+ul {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .navbar {
     border-bottom: 5px solid #ce1212;
 }
@@ -63,7 +68,6 @@ body {
 .container h1.wi { margin-bottom:5px;}
 .container p.sub { font-size:95%; color:#999;}
 
-.container table.queues { width:40%;}
 .container table.queues td.queue { font-weight:bold; width:50%;}
 .container table.queues tr.failure td { background:#ffecec; color:#d37474;}
 .container table.queues tr.failure td a{ color:#d37474;}
@@ -97,7 +101,7 @@ body {
 .container p.poll { background:url('../images/poll.png') no-repeat 0 2px; padding:3px 0; padding-left:23px; float:right; font-size:85%; }
 
 
-.container ul.failed {margin-top: 20px;}
+.container ul.failed {margin-top: 20px;margin-bottom: 0; }
 .container ul.failed li {
     background: #efefef; /* Old browsers */
     background: -moz-linear-gradient(top, #efefef 0%, #fff 100%); /* FF3.6+ */
@@ -121,7 +125,7 @@ body {
 .container ul.failed li dl dd .retried { float:right; text-align: right; }
 .container ul.failed li dl dd .retried .remove { display:none; margin-top: 8px; }
 .container ul.failed li.hover dl dd .retried .remove { display:block; }
-.container ul.failed li dl dd .controls { display:none; float:right; }
+.container ul.failed li dl dd .controls { float:right; }
 .container ul.failed li.hover dl dd .controls { display:block; }
 .container ul.failed li dl dd code, .container ul.failed li dl dd pre { font-family:Monaco, "Courier New", monospace; font-size:90%; white-space: pre-wrap;}
 .container ul.failed li dl dd.error a {font-family:Monaco, "Courier New", monospace; font-size:90%; }

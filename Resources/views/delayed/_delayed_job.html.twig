@@ -1,0 +1,18 @@
+<tr>
+    <td>
+        <span class="time">
+            {{ job.start_at | date }}
+        </span>
+    </td>
+    <td>
+        <code>{{ job.class }}</code>
+    </td>
+    <td>
+        <a class="label label-info" href="#">
+            {{ job.queue }}
+        </a>
+    </td>
+    <td>
+        {{ dump(job.args) }}
+    </td>
+</tr>

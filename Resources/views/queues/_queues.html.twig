@@ -15,7 +15,7 @@
     {% endfor %}
 
     <tr class="{{ failedSize > 0 ? 'failure' : 'failed' }} first_failure">
-        <td class="queue failed"><a href="#" class="queue">failed</a></td>
+        <td class="queue failed"><a href="{{ path('resque_failures') }}" class="queue">failed</a></td>
         <td class="size">{{ failedSize }}</td>
     </tr>
 </table>

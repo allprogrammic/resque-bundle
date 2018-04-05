@@ -1,0 +1,35 @@
+{% extends 'AllProgrammicResqueBundle::layout.html.twig' %}
+
+{% block link_workers_attr %} class="active"{% endblock %}
+
+{% block content %}
+    <h1 class="wi">Workers</h1>
+    <p class="intro">The hostnames below all have registered workers. Select a hostname to view its workers, or "all" to see all workers.</p>
+
+    <table class="table table-bordered queues">
+        <tr>
+            <th>Hostname</th>
+            <th>Workers</th>
+        </tr>
+        {% for host, worker in workers %}
+            <tr>
+                <td class="queue">
+                    <a href="{{ path('resque_workers_view', {hostname: host}) }}">
+                        {{ host }}
+                    </a>
+                </td>
+                <td class="size">
+                    {{ worker | length }}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr class="failed">
+            <td class="queue failed">
+                <a href="{{ path('resque_workers_view', {hostname: 'all'}) }}">
+                    all
+                </a>
+            </td>
+            <td class="size">{{ total }}</td>
+        </tr>
+    </table>
+{% endblock %}
