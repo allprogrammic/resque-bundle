@@ -80,6 +80,7 @@ class WorkerCommand extends ContainerAwareCommand
     {
         $worker = new Worker(
             $this->getContainer()->get('resque'),
+            $this->getContainer()->get('resque.heart'),
             $this->getContainer()->get('event_dispatcher'),
             $this->getContainer()->get('resque.failure'),
             $queues,
