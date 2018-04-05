@@ -56,4 +56,10 @@
         <default key="_controller">AllProgrammicResqueBundle:Stats:index</default>
     </route>
 
+    <!-- Delayed -->
+
+    <route id="resque_delayed" path="/delayed/">
+        <default key="_controller">AllProgrammicResqueBundle:Delayed:index</default>
+    </route>
+
 </routes>

@@ -19,6 +19,7 @@
             <argument type="service" id="resque.stat" />
             <argument type="service" id="resque.status.manager" />
             <argument type="service" id="resque.failure" />
+            <argument type="service" id="resque.delayed" />
             <argument type="service" id="logger" on-invalid="null" />
         </service>
 
@@ -31,6 +32,10 @@
         </service>
 
         <service id="resque.failure" class="AllProgrammic\Component\Resque\Failure\Redis">
+            <argument type="service" id="resque.redis.backend" />
+        </service>
+
+        <service id="resque.delayed" class="AllProgrammic\Component\Resque\Delayed\Redis">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
