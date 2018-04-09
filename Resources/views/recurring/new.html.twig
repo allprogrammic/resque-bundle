@@ -1,0 +1,22 @@
+{% extends 'AllProgrammicResqueBundle::layout.html.twig' %}
+
+{% block link_recurring_attr %} class="active"{% endblock %}
+
+{% block content %}
+    <h1>Insert new recurring job</h1>
+
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+    {{ form_start(form) }}
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.cron) }}
+    {{ form_row(form.class) }}
+    {{ form_row(form.queue) }}
+    {{ form_row(form.args) }}
+    {{ form_widget(form.submit) }}
+
+    <div class="form-group">
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

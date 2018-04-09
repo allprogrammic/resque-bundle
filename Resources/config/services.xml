@@ -21,6 +21,7 @@
             <argument type="service" id="resque.heart" />
             <argument type="service" id="resque.failure" />
             <argument type="service" id="resque.delayed" />
+            <argument type="service" id="resque.recurring" />
             <argument type="service" id="logger" on-invalid="null" />
         </service>
 
@@ -41,6 +42,10 @@
         </service>
 
         <service id="resque.delayed" class="AllProgrammic\Component\Resque\Delayed\Redis">
+            <argument type="service" id="resque.redis.backend" />
+        </service>
+
+        <service id="resque.recurring" class="AllProgrammic\Component\Resque\Recurring\Redis">
             <argument type="service" id="resque.redis.backend" />
         </service>
 

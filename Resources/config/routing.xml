@@ -50,6 +50,24 @@
         <default key="_controller">AllProgrammicResqueBundle:Failures:remove</default>
     </route>
 
+    <!-- Recurring jobs -->
+
+    <route id="resque_recurring" path="/recurring/">
+        <default key="_controller">AllProgrammicResqueBundle:Recurring:index</default>
+    </route>
+
+    <route id="resque_recurring_insert" path="/recurring/insert/">
+        <default key="_controller">AllProgrammicResqueBundle:Recurring:insert</default>
+    </route>
+
+    <route id="resque_recurring_update" path="/recurring/{id}/update/">
+        <default key="_controller">AllProgrammicResqueBundle:Recurring:update</default>
+    </route>
+
+    <route id="resque_recurring_remove" path="/recurring/{id}/remove/">
+        <default key="_controller">AllProgrammicResqueBundle:Recurring:remove</default>
+    </route>
+
     <!-- Stats -->
 
     <route id="resque_stat" path="/stats/">

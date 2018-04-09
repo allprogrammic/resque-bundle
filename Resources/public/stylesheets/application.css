@@ -135,8 +135,6 @@ ul {
 .container p.pagination a.less { float:left;}
 .container p.pagination a.more { float:right;}
 
-.container form {float:right; margin-top:-10px;margin-left:10px;}
-
 .container .time a.toggle_format {text-decoration:none;}
 
 #failed tr.total td {background-color: #FFECEC; color: #D37474; font-size: 15px; font-weight: bold;}
