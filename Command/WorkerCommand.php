@@ -35,6 +35,13 @@ class WorkerCommand extends ContainerAwareCommand
         ;
     }
 
+    /**
+     * Execute command
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null|void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $queues = explode(',', $input->getArgument('queues'));
@@ -59,6 +66,15 @@ class WorkerCommand extends ContainerAwareCommand
         $this->createWorker($queues, $interval, $blocking, $pidfile);
     }
 
+    /**
+     * Spawn workers
+     *
+     * @param $count
+     * @param $queues
+     * @param $interval
+     * @param $blocking
+     * @param $pidfile
+     */
     private function spawnWorkers($count, $queues, $interval, $blocking, $pidfile)
     {
         for ($i = 0; $i < $count; ++$i) {
@@ -76,6 +92,14 @@ class WorkerCommand extends ContainerAwareCommand
         }
     }
 
+    /**
+     * Create worker
+     *
+     * @param $queues
+     * @param $interval
+     * @param $blocking
+     * @param $pidfile
+     */
     private function createWorker($queues, $interval, $blocking, $pidfile)
     {
         $worker = new Worker(
