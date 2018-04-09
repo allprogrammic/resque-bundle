@@ -18,7 +18,7 @@
         {{ include('AllProgrammicResqueBundle:delayed:_delayed_job.html.twig', {id: id, job: job}, with_context=false) }}
     {% else %}
         <tr>
-            <td colspan="5" class="no-data">Nothing is delayed right now...</td>
+            <td colspan="4" class="no-data">Nothing is delayed right now...</td>
         </tr>
     {% endfor %}
 </table>
