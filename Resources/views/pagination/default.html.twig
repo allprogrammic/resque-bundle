@@ -2,20 +2,20 @@
     <ul class="pagination pull-right">
         {% if not pager.hasPrev %}
             <li class="disabled">
-                <span><i class="icon icon-prev"></i> Précédent</span>
+                <span><i class="icon icon-prev"></i> Previous</span>
             </li>
         {% else %}
             <li>
-                <a href="{{ path(routeName, {'page': pager.currentPage - 1}) }}">Précédent</a>
+                <a href="{{ path(routeName, {'page': pager.currentPage - 1}) }}">Previous</a>
             </li>
         {% endif %}
         {% if not pager.hasNext %}
             <li class="disabled">
-                <span>Suivant</span>
+                <span>Next</span>
             </li>
         {% else %}
             <li>
-                <a href="{{ path(routeName, {'page': pager.currentPage + 1}) }}">Suivant</a>
+                <a href="{{ path(routeName, {'page': pager.currentPage + 1}) }}">Next</a>
             </li>
         {% endif %}
     </ul>

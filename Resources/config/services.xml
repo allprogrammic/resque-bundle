@@ -49,6 +49,10 @@
             <argument type="service" id="resque.redis.backend" />
         </service>
 
+        <service id="resque.history" class="AllProgrammic\Component\Resque\History\Redis">
+            <argument type="service" id="resque.redis.backend" />
+        </service>
+
         <service id="resque.redis.backend" class="AllProgrammic\Component\Resque\Redis">
             <argument>%resque_redis_dsn%</argument>
             <argument>%resque_redis_prefix%</argument>

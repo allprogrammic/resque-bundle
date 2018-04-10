@@ -1,0 +1,12 @@
+{% extends 'AllProgrammicResqueBundle::layout.html.twig' %}
+
+{% block link_failures_attr %} class="active"{% endblock %}
+
+{% block content %}
+    <h1>Show failed job n°{{ id }}</h1>
+
+    <ul class="failed">
+        {{ include('AllProgrammicResqueBundle:failures:_failed_job.html.twig', {id: id, job: job}, with_context=false) }}
+    </ul>
+
+{% endblock %}

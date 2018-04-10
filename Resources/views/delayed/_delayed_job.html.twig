@@ -3,6 +3,10 @@
         <span class="time">
             {{ job.start_at | date }}
         </span>
+
+        {% if job.args.recurring is defined %}
+            <span class="label label-danger">Recurring job</span>
+        {% endif %}
     </td>
     <td>
         <code>{{ job.class }}</code>

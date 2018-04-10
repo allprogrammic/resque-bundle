@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    padding-top: 40px;
+    padding-top: 50px;
 }
 
 ul {
@@ -136,6 +136,7 @@ ul {
 .container p.pagination a.more { float:right;}
 
 .container .time a.toggle_format {text-decoration:none;}
+.container .form-group.pull-right {margin-top: 25px;}
 
 #failed tr.total td {background-color: #FFECEC; color: #D37474; font-size: 15px; font-weight: bold;}
 #failed .center {text-align: center;}

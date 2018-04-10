@@ -42,6 +42,10 @@
         <default key="_controller">AllProgrammicResqueBundle:Failures:index</default>
     </route>
 
+    <route id="resque_failures_show" path="/failures/{id}/show/">
+        <default key="_controller">AllProgrammicResqueBundle:Failures:show</default>
+    </route>
+
     <route id="resque_failures_reload" path="/failures/{id}/reload">
         <default key="_controller">AllProgrammicResqueBundle:Failures:reload</default>
     </route>
@@ -54,6 +58,10 @@
 
     <route id="resque_recurring" path="/recurring/">
         <default key="_controller">AllProgrammicResqueBundle:Recurring:index</default>
+    </route>
+
+    <route id="resque_recurring_history" path="/recurring/{id}/history/">
+        <default key="_controller">AllProgrammicResqueBundle:Recurring:history</default>
     </route>
 
     <route id="resque_recurring_insert" path="/recurring/insert/">

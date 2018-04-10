@@ -1,0 +1,33 @@
+<tr>
+    <td>{{ job.start_at.date }}</td>
+    <td>{{ job.name }}</td>
+    <td>{{ job.description }}</td>
+    <td>
+        <code>{{ job.class }}</code>
+    </td>
+    <td>
+        <a class="label label-info" href="#">
+            {{ job.queue }}
+        </a>
+    </td>
+    <td>{{ job.cron }}</td>
+    <td>
+        {% if job.status == 1 %}
+            <span class="label label-warning">
+                WAITING
+            </span>
+        {% elseif job.status == 2 %}
+            <span class="label label-info">
+                RUNNING
+            </span>
+        {% elseif job.status == 3 %}
+            <a href="{{ path('resque_failures_show', {id: job.failed}) }}" class="label label-danger">
+                FAILED
+            </a>
+        {% elseif job.status == 4 %}
+            <span class="label label-success">
+                COMPLETE
+            </span>
+        {% endif %}
+    </td>
+</tr>
