@@ -19,14 +19,14 @@
         {{ job.cron }}
     </td>
     <td>
-        <a class="btn btn-default" href="{{ path('resque_recurring_history', {id: id}) }}">
-            History
+        <a class="btn btn-default" href="{{ path('resque_recurring_history', {id: id}) }}" title="History">
+            <i class="glyphicon glyphicon-list-alt"></i>
         </a>
-        <a class="btn btn-default" href="{{ path('resque_recurring_update', {id: id}) }}">
-            Update
+        <a class="btn btn-default" href="{{ path('resque_recurring_update', {id: id}) }}" title="Update">
+            <i class="glyphicon glyphicon-pencil"></i>
         </a>
-        <a class="btn btn-danger" href="{{ path('resque_recurring_remove', {id: id}) }}">
-            Remove
+        <a class="btn btn-danger" href="{{ path('resque_recurring_remove', {id: id}) }}" title="Remove">
+            <i class="glyphicon glyphicon-trash"></i>
         </a>
     </td>
 </tr>
