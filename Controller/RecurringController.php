@@ -37,6 +37,34 @@ class RecurringController extends Controller
         ]);
     }
 
+    public function historyAction(Request $request, $id)
+    {
+        if (!$job = json_decode($this->get('resque')->getRecurringJob($id), true)) {
+            throw new NotFoundHttpException('Unable to find recurring job');
+        }
+
+        if (!$history = $this->get('resque.history')) {
+            throw new NotFoundHttpException('Unable to find recurring job history');
+        }
+
+        $page = $request->query->get('page', 1);
+        $backend = $this->get('resque.history');
+        $backend->setName($job['name']);
+
+        // Create new paginator
+        $pager = new Paginator($backend);
+        $jobs  = $pager
+            ->setMaxPerPage(15)
+            ->setCurrentPage($page)
+            ->getCurrentPageResults();
+
+        return $this->render('AllProgrammicResqueBundle:recurring:history.html.twig', [
+            'jobs'  => $jobs,
+            'pager' => $pager,
+            'job'   => $job,
+        ]);
+    }
+
     public function insertAction(Request $request)
     {
         $form = $this->createCreateForm();
@@ -44,7 +72,6 @@ class RecurringController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $data['args'] = json_decode($data['args'], true);
 
             // Add recurring job
             $this->get('resque')->insertRecurringJobs($data);
@@ -64,14 +91,11 @@ class RecurringController extends Controller
         }
 
         $data = json_decode($data, true);
-        $data['args'] = json_encode($data['args']);
-
         $form = $this->createCreateForm($data);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $data['args'] = json_decode($data['args'], true);
 
             // Add recurring job
             $this->get('resque')->updateRecurringJobs($id, $data);

@@ -16,6 +16,7 @@ use AllProgrammic\Component\Resque\Job;
 use AllProgrammic\Component\Resque\Worker;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FailuresController extends Controller
 {
@@ -25,46 +26,28 @@ class FailuresController extends Controller
 
         // Create new paginator
         $pager = new Paginator($this->get('resque')->getFailure());
-        $jobs  = $pager
+        $jobs = $pager
             ->setMaxPerPage(15)
             ->setCurrentPage($page)
             ->getCurrentPageResults();
 
         return $this->render('AllProgrammicResqueBundle:failures:index.html.twig', [
             'pager' => $pager,
-            'jobs'  => $jobs,
+            'jobs' => $jobs,
         ]);
     }
 
-    public function viewAction(Request $request, $id)
+    public function showAction(Request $request, $id)
     {
-        $queueSize = $this->get('resque')->size($id);
-        $jobPerPage = 25;
-        $offset = $request->query->get('start', 0);
+        $job = json_decode($this->get('resque')->getBackend()->lIndex('failed', $id), true);
 
-        if ($offset > $queueSize) {
-            $offset = $queueSize - $jobPerPage;
+        if (!$job) {
+            throw new NotFoundHttpException('Unable to find job');
         }
 
-        $count = $jobPerPage;
-        $maxOffset = $offset + $count;
-        if ($maxOffset > $queueSize) {
-            $count -= $maxOffset - $queueSize;
-        }
-
-        $jobs = $this->get('resque')->peekInQueue(
-            $id,
-            $offset,
-            $count
-        );
-
-        return $this->render('AllProgrammicResqueBundle:queues:view.html.twig', [
-            'queueId' => $id,
-            'jobs' => $jobs,
-            'startAt' => $offset + 1,
-            'endAt' => $offset + $count,
-            'size' => $queueSize,
-            'previous' => $offset - $jobPerPage,
+        return $this->render('AllProgrammicResqueBundle:failures:show.html.twig', [
+            'id' => $id,
+            'job' => $job,
         ]);
     }
 

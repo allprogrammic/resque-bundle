@@ -1,6 +1,8 @@
 <tr>
     <td>
-        {{ job.name }}
+        <a href="{{ path('resque_recurring_history', {id: id}) }}">
+            {{ job.name }}
+        </a>
     </td>
     <td>
         {{ job.description }}
@@ -17,6 +19,9 @@
         {{ job.cron }}
     </td>
     <td>
+        <a class="btn btn-default" href="{{ path('resque_recurring_history', {id: id}) }}">
+            History
+        </a>
         <a class="btn btn-default" href="{{ path('resque_recurring_update', {id: id}) }}">
             Update
         </a>
