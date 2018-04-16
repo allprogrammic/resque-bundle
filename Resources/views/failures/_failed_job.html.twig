@@ -17,11 +17,16 @@
             </div>
             {% else %}
             <div class="controls">
-                <a class="btn btn-default btn-sm" href="{{ path('resque_failures_reload', {id: id}) }}">
-                    Relancer
-                </a>
-                <a class="btn btn-danger btn-sm" href="{{ path('resque_failures_remove', {id: id}) }}">
-                    Supprimer
+                <div class="btn-group">
+                    <a class="btn btn-default btn-sm" href="{{ path('resque_failures_reload', {id: id}) }}">
+                        <i class="glyphicon glyphicon-refresh"></i> Retry
+                    </a>
+                    <a class="btn btn-default btn-sm" href="{{ path('resque_failures_remove', {id: id}) }}">
+                        <i class="glyphicon glyphicon-trash"></i> Clear
+                    </a>
+                </div>
+                <a class="btn btn-primary btn-sm" href="{{ path('resque_failures_enqueue', {id: id}) }}">
+                    <i class="glyphicon glyphicon-repeat"></i> Retry & Clear
                 </a>
             </div>
             {% endif %}

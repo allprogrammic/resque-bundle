@@ -39,7 +39,8 @@ class FailuresController extends Controller
 
     public function showAction(Request $request, $id)
     {
-        $job = json_decode($this->get('resque')->getBackend()->lIndex('failed', $id), true);
+        $job = $this->get('resque')->getBackend()->lIndex('failed', $id);
+        $job = json_decode($job, true);
 
         if (!$job) {
             throw new NotFoundHttpException('Unable to find job');
@@ -61,15 +62,9 @@ class FailuresController extends Controller
      */
     public function reloadAction(Request $request, $id)
     {
-        $job = $this->get('resque')->getBackend()->lIndex('failed', $id);
+        $this->enqueueFailedJob($id);
 
-        if ($job) {
-            $job = json_decode($job, true);
-            $job = new Job($job['queue'], $job['payload']);
-            $this->get('resque')->recreateJob($job);
-        }
-
-        return $this->redirectToRoute('resque_overview');
+        return $this->redirectToRoute('resque_failures');
     }
 
     /**
@@ -82,13 +77,78 @@ class FailuresController extends Controller
      */
     public function removeAction(Request $request, $id)
     {
+        $this->removeFailedJob($id);
+
+        return $this->redirectToRoute('resque_failures');
+    }
+
+    /**
+     * Clear all failed job action
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function clearAction(Request $request)
+    {
+        $this->get('resque')->getBackend()->del('failed');
+        $this->get('resque')->getBackend()->del('stat:failed');
+
+        return $this->redirectToRoute('resque_failures');
+    }
+
+    /**
+     * Enqueue failed job action
+     *
+     * @param Request $request
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function enqueueAction(Request $request, $id)
+    {
+        $this->enqueueFailedJob($id);
+        $this->removeFailedJob($id);
+
+        return $this->redirectToRoute('resque_failures');
+    }
+
+    /**
+     * Enqueue failed job
+     *
+     * @param $id
+     *
+     * @return bool
+     */
+    public function enqueueFailedJob($id)
+    {
         $job = $this->get('resque')->getBackend()->lIndex('failed', $id);
 
-        if ($job) {
-            $this->get('resque')->getBackend()->lSet('failed', $id, 'DELETE');
-            $this->get('resque')->getBackend()->lRem('failed', $id, 'DELETE');
+        if (!$job) {
+            return false;
         }
 
-        return $this->redirectToRoute('resque_overview');
+        $job = json_decode($job, true);
+        $job = new Job($job['queue'], $job['payload']);
+        $this->get('resque')->recreateJob($job);
+    }
+
+    /**
+     * Remove failed job
+     *
+     * @param $id
+     *
+     * @return bool
+     */
+    public function removeFailedJob($id)
+    {
+        $job = $this->get('resque')->getBackend()->lIndex('failed', $id);
+
+        if (!$job) {
+            return false;
+        }
+
+        $this->get('resque')->getBackend()->lSet('failed', $id, 'DELETE');
+        $this->get('resque')->getBackend()->lRem('failed', $id, 'DELETE');
     }
 }
