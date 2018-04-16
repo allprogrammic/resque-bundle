@@ -92,7 +92,7 @@ class FailuresController extends Controller
     public function clearAction(Request $request)
     {
         $this->get('resque')->getBackend()->del('failed');
-        $this->get('resque')->getBackend()->del('stat:processed');
+        $this->get('resque')->getBackend()->del('stat:failed');
 
         return $this->redirectToRoute('resque_failures');
     }
