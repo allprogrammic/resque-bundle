@@ -62,6 +62,14 @@
         <default key="_controller">AllProgrammicResqueBundle:Failures:remove</default>
     </route>
 
+    <route id="resque_failures_clear" path="/failures/clear/">
+        <default key="_controller">AllProgrammicResqueBundle:Failures:clear</default>
+    </route>
+
+    <route id="resque_failures_enqueue" path="/failures/{id}/enqueue">
+        <default key="_controller">AllProgrammicResqueBundle:Failures:enqueue</default>
+    </route>
+
     <!-- Recurring jobs -->
 
     <route id="resque_recurring" path="/recurring/">
