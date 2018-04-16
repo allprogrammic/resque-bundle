@@ -69,7 +69,7 @@ class FailuresController extends Controller
             $this->get('resque')->recreateJob($job);
         }
 
-        return $this->redirectToRoute('resque_overview');
+        return $this->redirectToRoute('resque_failures');
     }
 
     /**
@@ -89,6 +89,6 @@ class FailuresController extends Controller
             $this->get('resque')->getBackend()->lRem('failed', $id, 'DELETE');
         }
 
-        return $this->redirectToRoute('resque_overview');
+        return $this->redirectToRoute('resque_failures');
     }
 }
