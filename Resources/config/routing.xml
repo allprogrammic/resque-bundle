@@ -16,6 +16,10 @@
         <default key="_controller">AllProgrammicResqueBundle:Working:view</default>
     </route>
 
+    <route id="resque_working_working" path="/working/controller/working">
+        <default key="_controller">AllProgrammicResqueBundle:Working:working</default>
+    </route>
+
     <!-- Workers -->
 
     <route id="resque_workers" path="/workers/">
@@ -34,6 +38,10 @@
 
     <route id="resque_queues_view" path="/queues/{id}">
         <default key="_controller">AllProgrammicResqueBundle:Queues:view</default>
+    </route>
+
+    <route id="resque_queues_queues" path="/queues/controller/queues/">
+        <default key="_controller">AllProgrammicResqueBundle:Queues:queues</default>
     </route>
 
     <!-- Failures -->

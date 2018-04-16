@@ -3,7 +3,11 @@
 {% block link_overview_attr %} class="active"{% endblock %}
 
 {% block content %}
-    {{ render(controller('AllProgrammicResqueBundle:Queues:queues')) }}
-    <hr />
-    {{ render(controller('AllProgrammicResqueBundle:Working:working')) }}
+    <div async-reload="true" async-action="{{ path('resque_queues_queues') }}" async-interval="10000">
+        <div class="loader"></div>
+    </div>
+    <hr/>
+    <div async-reload="true" async-action="{{ path('resque_working_working') }}" async-interval="10000">
+        <div class="loader"></div>
+    </div>
 {% endblock %}
