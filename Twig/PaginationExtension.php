@@ -36,7 +36,8 @@ class PaginationExtension extends \Twig_Extension
     /**
      * @param \Twig_Environment $env
      * @param Paginator $pager
-     * @param $routeName
+     * @param string $routeName
+     * @param array $routeParameters
      *
      * @return string
      *
@@ -44,11 +45,12 @@ class PaginationExtension extends \Twig_Extension
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function render(\Twig_Environment $env, Paginator $pager, $routeName)
+    public function render(\Twig_Environment $env, Paginator $pager, $routeName, $routeParameters = [])
     {
         return $env->render($this->defaultView, [
             'pager' => $pager,
             'routeName' => $routeName,
+            'routeParameters' => $routeParameters,
         ]);
     }
 }

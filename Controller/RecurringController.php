@@ -59,9 +59,10 @@ class RecurringController extends Controller
             ->getCurrentPageResults();
 
         return $this->render('AllProgrammicResqueBundle:recurring:history.html.twig', [
+            'job'   => $job,
+            'id'    => $id,
             'jobs'  => $jobs,
             'pager' => $pager,
-            'job'   => $job,
         ]);
     }
 

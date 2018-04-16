@@ -26,5 +26,5 @@
         {% endfor %}
     </table>
 
-    {{ pagination(pager, 'resque_recurring_history') }}
+    {{ pagination(pager, 'resque_recurring_history', {id: id}) }}
 {% endblock %}
