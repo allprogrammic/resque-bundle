@@ -3,14 +3,21 @@
 <table class="table table-bordered workers">
     <tr>
         <th>&nbsp;</th>
+        <th>Started at</th>
         <th>Where</th>
         <th>Queue</th>
         <th>Processing</th>
+        <th>Processed</th>
+        <th>Failed</th>
+        <th>Last activity</th>
     </tr>
     {% for worker in workers %}
         <tr>
             <td class="icon">
                 <img src="{{ asset('bundles/allprogrammicresque/images/' ~ (worker.idle ? 'idle' : 'working') ~ '.png') }}" alt="" />
+            </td>
+            <td>
+                {{ date(worker.getStartedAt) | date('Y-m-d H:i:s')}}
             </td>
             <td class="where">
                 <a href="#">{{ worker.host }}:{{ worker.pid }}</a>
@@ -28,10 +35,26 @@
                     <span class="waiting">Waiting for a job...</span>
                 {% endif %}
             </td>
+            <td>
+                <span class="label label-success">
+                    {{ worker.getProcessed }} processed
+                </span>
+            </td>
+            <td>
+                <span class="label label-danger">
+                    {{ worker.getFailed }} failed
+                </span>
+            </td>
+            <td>
+                <span class="label label-warning text-center">
+                    {% set diff = date().diff(date(worker.getHearbeat)) %}
+                    {{ diff.s }} seconds ago
+                </span>
+            </td>
         </tr>
     {% else %}
         <tr>
-            <td colspan="4" class="no-data">Nothing is happening right now...</td>
+            <td colspan="8" class="no-data">Nothing is happening right now...</td>
         </tr>
     {% endfor %}
 </table>
