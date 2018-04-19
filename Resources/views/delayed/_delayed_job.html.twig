@@ -17,6 +17,6 @@
         </a>
     </td>
     <td>
-        {{ dump(job.args) }}
+        {{ job.args|resque_inspect }}
     </td>
 </tr>
