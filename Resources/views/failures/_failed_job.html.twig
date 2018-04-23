@@ -46,8 +46,10 @@
         <dt>Error</dt>
         <dd class="error">
             {% if job.backtrace is defined and job.backtrace is not empty %}
-            <a href="#" class="backtrace">{{ job.error }}</a>
-            <pre style='display:none'>{{ job.backtrace|join("\r") }}</pre>
+            <div class="toggle">
+                <a href="#" class="backtrace">{{ job.error }}</a>
+                <pre>{{ job.backtrace|join("\r") }}</pre>
+            </div>
             {% else %}
             {{ job.error }}
             {% endif %}

@@ -1,6 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {
     asyncAction();
+    toggleAction();
 });
+
+var toggleAction = function() {
+    var el = document.querySelector('.toggle');
+
+    el.onclick = function() {
+        el.classList.toggle('active');
+    }
+};
 
 /**
  * Async action

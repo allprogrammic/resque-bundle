@@ -128,7 +128,8 @@ ul {
 .container ul.failed li.hover dl dd .controls { display:block; }
 .container ul.failed li dl dd code, .container ul.failed li dl dd pre { font-family:Monaco, "Courier New", monospace; font-size:90%; white-space: pre-wrap;}
 .container ul.failed li dl dd.error a {font-family:Monaco, "Courier New", monospace; font-size:90%; }
-.container ul.failed li dl dd.error pre { margin-top:3px; line-height:1.3;}
+.container ul.failed li dl dd.error pre { display: none; }
+.container ul.failed li dl dd.error .active pre { display:block; }
 
 .container p.pagination { background:#efefef; padding:10px; overflow:hidden;}
 .container p.pagination a.less { float:left;}
