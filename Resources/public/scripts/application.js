@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 var toggleAction = function() {
-    var el = document.querySelector('.toggle');
-
-    el.onclick = function() {
-        el.classList.toggle('active');
-    }
+    [].forEach.call(document.getElementsByClassName('toggle'), function(el) {
+        el.onclick = function() {
+            el.classList.toggle('active');
+        }
+    });
 };
 
 /**
