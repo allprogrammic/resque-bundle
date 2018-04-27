@@ -47,7 +47,7 @@
         <dd class="error">
             {% if job.backtrace is defined and job.backtrace is not empty %}
             <div class="toggle">
-                <a href="#" class="backtrace">{{ job.error }}</a>
+                <i class="glyphicon glyphicon-exclamation-sign"></i> <b>Error</b> : {{ job.error }}
                 <pre>{{ job.backtrace|join("\r") }}</pre>
             </div>
             {% else %}

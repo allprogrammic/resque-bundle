@@ -3,6 +3,7 @@
 {% block link_failures_attr %} class="active"{% endblock %}
 
 {% block content %}
+    {% if jobs | length %}
     <div class="form-group pull-right">
         <div class="btn-group">
             <a class="btn btn-default btn-sm" href="{{ path('resque_failures_clear') }}">
@@ -10,6 +11,7 @@
             </a>
         </div>
     </div>
+    {% endif %}
 
     <h1>All Failure Queues</h1>
     <p class="sub">Showing {{ pager.currentFrom }} to {{ pager.currentCount }} of <b>{{ pager.count }}</b> jobs</p>
