@@ -8,7 +8,7 @@
         <dd>
             {{ job.worker|split(':')|slice(0, 2)|join(':') }}
             on <b class="label label-info">{{ job.queue }}</b >
-            at <b><span class="time">{{ job.failed_at|date }}</span></b>
+            at <b><span class="time">{{ job.failed_at.date }}</span></b>
 
             {% if job.retried_at is defined %}
             <div class="retried">
