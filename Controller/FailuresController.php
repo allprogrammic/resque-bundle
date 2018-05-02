@@ -82,6 +82,18 @@ class FailuresController extends Controller
         return $this->redirectToRoute('resque_failures');
     }
 
+    public function refreshAction(Request $request)
+    {
+        $jobs = $this->get('resque')->getBackend()->lRange('failed', 0, -1);
+
+        foreach ($jobs as $key => $job) {
+            $this->enqueueFailedJob($key);
+            $this->removeFailedJob($key);
+        }
+
+        return $this->redirectToRoute('resque_failures');
+    }
+
     /**
      * Clear all failed job action
      *

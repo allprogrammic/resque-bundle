@@ -10,6 +10,11 @@
                 <i class="glyphicon glyphicon-trash"></i> Clear ALL
             </a>
         </div>
+        <div class="btn-group">
+            <a class="btn btn-warning btn-sm" href="{{ path('resque_failures_refresh') }}">
+                <i class="glyphicon glyphicon-repeat"></i> Retry & clear ALL
+            </a>
+        </div>
     </div>
     {% endif %}
 
