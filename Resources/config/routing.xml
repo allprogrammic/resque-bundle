@@ -66,6 +66,10 @@
         <default key="_controller">AllProgrammicResqueBundle:Failures:clear</default>
     </route>
 
+    <route id="resque_failures_refresh" path="/failures/refresh/">
+        <default key="_controller">AllProgrammicResqueBundle:Failures:refresh</default>
+    </route>
+
     <route id="resque_failures_enqueue" path="/failures/{id}/enqueue">
         <default key="_controller">AllProgrammicResqueBundle:Failures:enqueue</default>
     </route>
