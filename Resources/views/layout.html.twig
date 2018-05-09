@@ -64,6 +64,12 @@
         </div>
     </footer>
 
-    <script src="{{ asset('bundles/allprogrammicresque/scripts/application.js') }}"></script>
+    {% block javascripts %}
+        <script src="{{ asset('bundles/allprogrammicresque/scripts/charts.js') }}"></script>
+        <script src="{{ asset('bundles/allprogrammicresque/scripts/application.js') }}"></script>
+
+        {% block add_javascripts %}
+        {% endblock %}
+    {% endblock %}
 </body>
 </html>
