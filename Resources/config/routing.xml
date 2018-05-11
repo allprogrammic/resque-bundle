@@ -108,4 +108,10 @@
         <default key="_controller">AllProgrammicResqueBundle:Delayed:index</default>
     </route>
 
+    <!-- Chart -->
+
+    <route id="resque_chart" path="/chart/">
+        <default key="_controller">AllProgrammicResqueBundle:Chart:index</default>
+    </route>
+
 </routes>
