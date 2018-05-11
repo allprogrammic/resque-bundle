@@ -22,7 +22,7 @@
             <argument type="service" id="resque.failure" />
             <argument type="service" id="resque.delayed" />
             <argument type="service" id="resque.recurring" />
-            <argument type="service" id="resque.processed" />
+            <argument type="service" id="resque.charts" />
             <argument type="service" id="logger" on-invalid="null" />
         </service>
 
@@ -54,7 +54,7 @@
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.processed" class="AllProgrammic\Component\Resque\Processed\Redis">
+        <service id="resque.charts" class="AllProgrammic\Component\Resque\Charts\Charts">
             <argument type="service" id="resque.redis.backend" />
         </service>
 

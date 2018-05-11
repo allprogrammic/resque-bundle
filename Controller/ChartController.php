@@ -32,7 +32,7 @@ class ChartController extends Controller
      */
     public function failuresAction()
     {
-        $data = $this->get('resque')->getFailure()->peek(0, 0);
+        $data = $this->get('resque.charts')->getFailure()->peek(0, 0);
         $data = $this->getData($data);
 
         return $this->render('AllProgrammicResqueBundle:chart:failures.html.twig', [
@@ -47,7 +47,7 @@ class ChartController extends Controller
      */
     public function processedAction()
     {
-        $data = $this->get('resque')->getProcessed()->peek(0, 0);
+        $data = $this->get('resque.charts')->getProcess()->peek(0, 0);
         $data = $this->getData($data);
 
         return $this->render('AllProgrammicResqueBundle:chart:processed.html.twig', [
@@ -75,18 +75,11 @@ class ChartController extends Controller
         }
 
         foreach ($data as $key => $value) {
-            if (!isset($value['failed_at']) &&
-                !isset($value['processed_at'])) {
+            if (!isset($value['date'])) {
                 continue;
             }
 
-            if (isset($value['failed_at'])) {
-                $date = date('Y-m-d', strtotime($value['failed_at']['date']));
-            }
-
-            if (isset($value['processed_at'])) {
-                $date = date('Y-m-d', $value['processed_at']);
-            }
+            $date = date('Y-m-d', $value['date']);
 
             if (strtotime($date) <
                 strtotime(sprintf('-%s days', $interval))) {
@@ -95,7 +88,7 @@ class ChartController extends Controller
 
             $count = 1;
 
-            if (isset($value['processed_at'])) {
+            if (isset($value['date'])) {
                 $count = $value['count'];
             }
 
