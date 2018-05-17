@@ -23,7 +23,7 @@
             <argument type="service" id="resque.delayed" />
             <argument type="service" id="resque.recurring" />
             <argument type="service" id="resque.charts" />
-            <argument type="service" id="resque.lock" />
+            <argument type="service" id="resque.lock_delayed" />
             <argument type="service" id="logger" on-invalid="null" />
         </service>
 
