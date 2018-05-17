@@ -107,6 +107,7 @@ class WorkerCommand extends ContainerAwareCommand
             $this->getContainer()->get('resque.heart'),
             $this->getContainer()->get('event_dispatcher'),
             $this->getContainer()->get('resque.failure'),
+            $this->getContainer()->get('resque.lock'),
             $queues,
             $logger = $this->getContainer()->get('logger')
         );
