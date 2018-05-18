@@ -63,8 +63,11 @@ class ChartController extends Controller
      */
     public function getData($data, $interval = 7, $format = 'm-d')
     {
-        $diff = strtotime('now');
+        $data   = array_values($data);
+        $diff   = strtotime('now');
         $result = [];
+
+        array_multisort($data, SORT_ASC);
 
         for ($i = 0; $i < $interval; $i++) {
             if ($i !== 0) {
@@ -81,18 +84,12 @@ class ChartController extends Controller
 
             $date = date('Y-m-d', $value['date']);
 
-            if (strtotime($date) <
-                strtotime(sprintf('-%s days', $interval))) {
-                break;
+            if (strtotime($date) < strtotime(sprintf('-%s days', $interval))) {
+                continue;
             }
 
-            $count = 1;
-
-            if (isset($value['date'])) {
-                $count = $value['count'];
-            }
-
-            $result[date($format, strtotime($date))] += $count;
+            $count = $value['count'];
+            $result[date($format, strtotime($date))] = $count;
         }
 
         return array_reverse($result);
