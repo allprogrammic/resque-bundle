@@ -84,11 +84,10 @@ class FailuresController extends Controller
 
     public function refreshAction(Request $request)
     {
-        $jobs = $this->get('resque')->getBackend()->lRange('failed', 0, -1);
-
-        foreach ($jobs as $key => $job) {
-            $this->enqueueFailedJob($key);
-            $this->removeFailedJob($key);
+        while ($item = $this->get('resque')->getBackend()->lpop('failed')) {
+            $item = json_decode($item, true);
+            $item = new Job($item['queue'], $item['payload']);
+            $this->get('resque')->recreateJob($item);
         }
 
         return $this->redirectToRoute('resque_failures');

@@ -31,6 +31,7 @@ class WorkerCommand extends ContainerAwareCommand
                 new InputOption('blocking', null, InputOption::VALUE_OPTIONAL, 'use blocking mode', false),
                 new InputOption('interval', null, InputOption::VALUE_OPTIONAL, 'interval', null),
                 new InputOption('pidfile', null, InputOption::VALUE_OPTIONAL, 'pidfile', null),
+                new InputOption('cyclic', null, InputOption::VALUE_OPTIONAL, 'use cylic mode for queues', false),
             ])
         ;
     }
@@ -44,10 +45,15 @@ class WorkerCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $queues = explode(',', $input->getArgument('queues'));
+        $queues   = explode(',', $input->getArgument('queues'));
+
         $interval = $input->getOption('interval');
         $blocking = $input->getOption('blocking');
-        $pidfile = $input->getOption('pidfile');
+        $pidfile  = $input->getOption('pidfile');
+        $cyclic   = $input->getOption('cyclic');
+
+        $blocking = filter_var($blocking, FILTER_VALIDATE_BOOLEAN);
+        $cyclic   = filter_var($cyclic, FILTER_VALIDATE_BOOLEAN);
 
         if (is_null($interval)) {
             $interval = $this->getContainer()->getParameter('resque_worker_sleeping');
@@ -58,12 +64,12 @@ class WorkerCommand extends ContainerAwareCommand
         }
 
         if ($count = $input->getOption('count') > 1) {
-            $this->spawnWorkers($count, $queues, $interval, $blocking, $pidfile);
+            $this->spawnWorkers($count, $queues, $interval, $blocking, $pidfile, $cyclic);
 
             return;
         }
 
-        $this->createWorker($queues, $interval, $blocking, $pidfile);
+        $this->createWorker($queues, $interval, $blocking, $pidfile, $cyclic);
     }
 
     /**
@@ -74,8 +80,9 @@ class WorkerCommand extends ContainerAwareCommand
      * @param $interval
      * @param $blocking
      * @param $pidfile
+     * @param $cyclic
      */
-    private function spawnWorkers($count, $queues, $interval, $blocking, $pidfile)
+    private function spawnWorkers($count, $queues, $interval, $blocking, $pidfile, $cyclic)
     {
         for ($i = 0; $i < $count; ++$i) {
             $pid = $this->getContainer()->get('resque')->fork();
@@ -86,7 +93,7 @@ class WorkerCommand extends ContainerAwareCommand
 
             if (!$pid) {
                 // Child, start the worker
-                $this->createWorker($queues, $interval, $blocking, $pidfile);
+                $this->createWorker($queues, $interval, $blocking, $pidfile, $cyclic);
                 break;
             }
         }
@@ -99,8 +106,9 @@ class WorkerCommand extends ContainerAwareCommand
      * @param $interval
      * @param $blocking
      * @param $pidfile
+     * @param $cyclic
      */
-    private function createWorker($queues, $interval, $blocking, $pidfile)
+    private function createWorker($queues, $interval, $blocking, $pidfile, $cyclic)
     {
         $worker = new Worker(
             $this->getContainer()->get('resque'),
@@ -109,6 +117,7 @@ class WorkerCommand extends ContainerAwareCommand
             $this->getContainer()->get('resque.failure'),
             $this->getContainer()->get('resque.lock_delayed'),
             $queues,
+            $cyclic,
             $logger = $this->getContainer()->get('logger')
         );
 
