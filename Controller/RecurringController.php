@@ -136,7 +136,7 @@ class RecurringController extends Controller
         $data = $this->get('resque')->getRecurring()->peek(0, 0);
 
         // Provide a name for your file with extension
-        $filename = sprintf('%s.yml', time());
+        $filename = sprintf('%s-%s.yml', 'resque_recurring_jobs', date('YmdHis'));
 
         $fileContent = Yaml::dump($data);
 
