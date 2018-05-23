@@ -88,6 +88,14 @@
         <default key="_controller">AllProgrammicResqueBundle:Recurring:insert</default>
     </route>
 
+    <route id="resque_recurring_export" path="/recurring/export/">
+        <default key="_controller">AllProgrammicResqueBundle:Recurring:export</default>
+    </route>
+
+    <route id="resque_recurring_import" path="/recurring/import/">
+        <default key="_controller">AllProgrammicResqueBundle:Recurring:import</default>
+    </route>
+
     <route id="resque_recurring_update" path="/recurring/{id}/update/">
         <default key="_controller">AllProgrammicResqueBundle:Recurring:update</default>
     </route>

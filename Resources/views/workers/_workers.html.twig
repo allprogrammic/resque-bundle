@@ -47,7 +47,7 @@
             </td>
             <td>
                 <span class="label label-warning text-center">
-                    {% set diff = date().diff(date(worker.getHearbeat)) %}
+                    {% set diff = date().diff(date(worker.getHeartbeat)) %}
                     {{ diff.s }} seconds ago
                 </span>
             </td>
