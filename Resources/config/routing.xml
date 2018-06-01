@@ -122,4 +122,12 @@
         <default key="_controller">AllProgrammicResqueBundle:Chart:index</default>
     </route>
 
+    <route id="resque_chart_processed" path="/chart/processed/">
+        <default key="_controller">AllProgrammicResqueBundle:Chart:processed</default>
+    </route>
+
+    <route id="resque_chart_failures" path="/chart/failures/">
+        <default key="_controller">AllProgrammicResqueBundle:Chart:failures</default>
+    </route>
+
 </routes>
