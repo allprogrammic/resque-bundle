@@ -12,6 +12,7 @@
 namespace AllProgrammic\Bundle\ResqueBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ChartController extends Controller
 {
@@ -35,9 +36,7 @@ class ChartController extends Controller
         $data = $this->get('resque.charts')->getFailure()->peek(0, 0);
         $data = $this->getData($data);
 
-        return $this->render('AllProgrammicResqueBundle:chart:failures.html.twig', [
-            'data' => json_encode($data),
-        ]);
+        return new JsonResponse($data);
     }
 
     /**
@@ -50,9 +49,7 @@ class ChartController extends Controller
         $data = $this->get('resque.charts')->getProcess()->peek(0, 0);
         $data = $this->getData($data);
 
-        return $this->render('AllProgrammicResqueBundle:chart:processed.html.twig', [
-            'data' => json_encode($data),
-        ]);
+        return new JsonResponse($data);
     }
 
     /**

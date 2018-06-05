@@ -1,9 +1,9 @@
 <h1>Charts</h1>
 <div class="row">
     <div class="col-md-4">
-        {{ render(controller('AllProgrammicResqueBundle:Chart:processed')) }}
+        {{ include('AllProgrammicResqueBundle:chart:processed.html.twig') }}
     </div>
     <div class="col-md-4">
-        {{ render(controller('AllProgrammicResqueBundle:Chart:failures')) }}
+        {{ include('AllProgrammicResqueBundle:chart:failures.html.twig') }}
     </div>
 </div>

@@ -1,5 +1,7 @@
-<div data-charts="{{ data }}"
+<div data-charts-async="true"
+     data-charts="{}"
+     data-charts-action="{{ path('resque_chart_failures') }}"
+     data-charts-interval="10000"
      data-label="Failures"
      data-title="Last 7 days failures">
-    <div class="loader"></div>
 </div>
