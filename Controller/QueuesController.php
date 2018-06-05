@@ -54,6 +54,13 @@ class QueuesController extends Controller
         ]);
     }
 
+    public function clearAction($id)
+    {
+        $this->get('resque')->dequeue($id);
+
+        return $this->redirectToRoute('resque_overview');
+    }
+
     public function queuesAction()
     {
         $resque = $this->get('resque');
