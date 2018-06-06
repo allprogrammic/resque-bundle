@@ -9,8 +9,15 @@
 
     {% for queue, size in queues %}
         <tr>
-            <td class="queue"><a href="{{ path('resque_queues_view', {id: queue}) }}">{{ queue }}</a></td>
-            <td class="size">{{ size }}</td>
+            <td class="queue">
+                <a href="{{ path('resque_queues_view', {id: queue}) }}">{{ queue }}</a>
+            </td>
+            <td class="size">
+                {{ size }}
+                <a href="{{ path('resque_queues_clear', {id: queue}) }}" class="btn btn-xs btn-default pull-right" title="Clear">
+                    Clear
+                </a>
+            </td>
         </tr>
     {% endfor %}
 

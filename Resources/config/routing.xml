@@ -44,6 +44,10 @@
         <default key="_controller">AllProgrammicResqueBundle:Queues:queues</default>
     </route>
 
+    <route id="resque_queues_clear" path="/queues/{id}/clear">
+        <default key="_controller">AllProgrammicResqueBundle:Queues:clear</default>
+    </route>
+
     <!-- Failures -->
 
     <route id="resque_failures" path="/failures/">
