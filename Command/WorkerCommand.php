@@ -12,6 +12,7 @@
 namespace AllProgrammic\Bundle\ResqueBundle\Command;
 
 use Psr\Log\LogLevel;
+use Psr\Log\LoggerInterface;
 use AllProgrammic\Component\Resque\Worker;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,6 +22,27 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class WorkerCommand extends ContainerAwareCommand
 {
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * WorkerCommand constructor.
+     *
+     * @param LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger = null)
+    {
+        parent::__construct();
+
+        if (!is_null($logger)) {
+            $this->logger = $logger;
+        } else {
+            $this->logger = $this->getContainer()->get('logger');
+        }
+    }
+
     protected function configure()
     {
         $this
@@ -118,10 +140,10 @@ class WorkerCommand extends ContainerAwareCommand
             $this->getContainer()->get('resque.lock_delayed'),
             $queues,
             $cyclic,
-            $logger = $this->getContainer()->get('logger')
+            $this->logger
         );
 
-        $logger->log(LogLevel::NOTICE, sprintf('Starting worker %s', $worker));
+        $this->logger->log(LogLevel::NOTICE, sprintf('Starting worker %s', $worker));
         $worker->work($interval, $blocking);
     }
 }

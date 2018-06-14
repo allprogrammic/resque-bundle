@@ -27,27 +27,27 @@
             <argument type="service" id="logger" on-invalid="null" />
         </service>
 
-        <service id="resque.status.manager" class="AllProgrammic\Component\Resque\Job\Status">
+        <service id="resque.status.manager" class="AllProgrammic\Component\Resque\Job\Status" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.stat" class="AllProgrammic\Component\Resque\Stat">
+        <service id="resque.stat" class="AllProgrammic\Component\Resque\Stat" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.heart" class="AllProgrammic\Component\Resque\Heart">
+        <service id="resque.heart" class="AllProgrammic\Component\Resque\Heart" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.failure" class="AllProgrammic\Component\Resque\Failure\Redis">
+        <service id="resque.failure" class="AllProgrammic\Component\Resque\Failure\Redis" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.delayed" class="AllProgrammic\Component\Resque\Delayed\Redis">
+        <service id="resque.delayed" class="AllProgrammic\Component\Resque\Delayed\Redis" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.recurring" class="AllProgrammic\Component\Resque\Recurring\Redis">
+        <service id="resque.recurring" class="AllProgrammic\Component\Resque\Recurring\Redis" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
@@ -59,7 +59,7 @@
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.lock_delayed" class="AllProgrammic\Component\Resque\Lock">
+        <service id="resque.lock_delayed" class="AllProgrammic\Component\Resque\Lock" public="true">
             <argument type="service" id="resque.redis.backend" />
             <argument>delayed</argument>
         </service>
