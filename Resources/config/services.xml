@@ -12,7 +12,7 @@
     </parameters>
 
     <services>
-        <service id="resque" class="AllProgrammic\Component\Resque\Engine">
+        <service id="resque" class="AllProgrammic\Component\Resque\Engine" public="true">
             <argument type="service" id="resque.redis.backend" />
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="service_container" />
@@ -55,7 +55,7 @@
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.charts" class="AllProgrammic\Component\Resque\Charts\Charts">
+        <service id="resque.charts" class="AllProgrammic\Component\Resque\Charts\Charts" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
