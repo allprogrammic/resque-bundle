@@ -8,11 +8,11 @@
         <parameter key="resque_worker_sleeping">5</parameter>
         <parameter key="resque_redis_dsn">redis://127.0.0.1:6379/0</parameter>
         <parameter key="resque_redis_prefix">resque:</parameter>
-        <parameter key="resque_pagination_default_view">AllProgrammicResqueBundle:pagination:default.html.twig</parameter>
+        <parameter key="resque_pagination_default_view">@AllProgrammicResque/pagination/default.html.twig</parameter>
     </parameters>
 
     <services>
-        <service id="resque" class="AllProgrammic\Component\Resque\Engine" public="true">
+        <service id="resque" class="AllProgrammic\Component\Resque\Engine" public="true ">
             <argument type="service" id="resque.redis.backend" />
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="service_container" />
@@ -51,7 +51,7 @@
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.history" class="AllProgrammic\Component\Resque\History\Redis">
+        <service id="resque.history" class="AllProgrammic\Component\Resque\History\Redis" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
