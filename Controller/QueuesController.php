@@ -19,7 +19,7 @@ class QueuesController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AllProgrammicResqueBundle:queues:index.html.twig');
+        return $this->render('@AllProgrammicResque/queues/index.html.twig');
     }
 
     public function viewAction(Request $request, $id)
@@ -44,7 +44,7 @@ class QueuesController extends Controller
             $count
         );
 
-        return $this->render('AllProgrammicResqueBundle:queues:view.html.twig', [
+        return $this->render('@AllProgrammicResque/queues/view.html.twig', [
             'queueId' => $id,
             'jobs' => $jobs,
             'startAt' => $offset + 1,
@@ -70,7 +70,7 @@ class QueuesController extends Controller
             $queues[$queue] = $resque->size($queue);
         }
 
-        return $this->render('AllProgrammicResqueBundle:queues:_queues.html.twig', [
+        return $this->render('@AllProgrammicResque/queues/_queues.html.twig', [
             'queues' => $queues,
             'failedSize' => $resque->getFailure()->count(),
         ]);

@@ -1,7 +1,7 @@
-{% extends 'AllProgrammicResqueBundle::layout.html.twig' %}
+{% extends '@AllProgrammicResque/layout.html.twig' %}
 
 {% block link_workers_attr %} class="active"{% endblock %}
 
 {% block content %}
-    {{ include('AllProgrammicResqueBundle:workers:_workers.html.twig') }}
+    {{ include('@AllProgrammicResque/workers/_workers.html.twig') }}
 {% endblock %}

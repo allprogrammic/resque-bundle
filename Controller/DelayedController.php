@@ -36,7 +36,7 @@ class DelayedController extends Controller
             ->setCurrentPage($page)
             ->getCurrentPageResults();
 
-        return $this->render('AllProgrammicResqueBundle:delayed:index.html.twig', [
+        return $this->render('@AllProgrammicResque/delayed/index.html.twig', [
             'jobs'  => $jobs,
             'pager' => $pager
         ]);

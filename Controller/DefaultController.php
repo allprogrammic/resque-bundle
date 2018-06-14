@@ -17,6 +17,6 @@ class DefaultController extends Controller
 {
     public function overviewAction()
     {
-        return $this->render('AllProgrammicResqueBundle:default:overview.html.twig');
+        return $this->render('@AllProgrammicResque/default/overview.html.twig');
     }
 }

@@ -1,7 +1,7 @@
-{% extends 'AllProgrammicResqueBundle::layout.html.twig' %}
+{% extends '@AllProgrammicResque/layout.html.twig' %}
 
 {% block link_queues_attr %} class="active"{% endblock %}
 
 {% block content %}
-    {{ render(controller('AllProgrammicResqueBundle:Queues:queues')) }}
+    {{ render(controller('@AllProgrammicResque/Queues/queues')) }}
 {% endblock %}
