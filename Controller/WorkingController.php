@@ -18,7 +18,7 @@ class WorkingController extends Controller
 {
     public function viewAction()
     {
-        return $this->render('AllProgrammicResqueBundle:working:view.html.twig');
+        return $this->render('@AllProgrammicResque/working/view.html.twig');
     }
 
     public function workingAction()
@@ -39,7 +39,7 @@ class WorkingController extends Controller
 
         // TODO : sort working by running at
 
-        return $this->render('AllProgrammicResqueBundle:working:_working.html.twig', [
+        return $this->render('@AllProgrammicResque/working/_working.html.twig', [
             'workers' => $workers,
             'working_workers' => $working_workers,
         ]);

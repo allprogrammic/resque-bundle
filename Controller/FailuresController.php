@@ -31,7 +31,7 @@ class FailuresController extends Controller
             ->setCurrentPage($page)
             ->getCurrentPageResults();
 
-        return $this->render('AllProgrammicResqueBundle:failures:index.html.twig', [
+        return $this->render('@AllProgrammicResque/failures/index.html.twig', [
             'pager' => $pager,
             'jobs' => $jobs,
         ]);
@@ -46,7 +46,7 @@ class FailuresController extends Controller
             throw new NotFoundHttpException('Unable to find job');
         }
 
-        return $this->render('AllProgrammicResqueBundle:failures:show.html.twig', [
+        return $this->render('@AllProgrammicResque/failures/show.html.twig', [
             'id' => $id,
             'job' => $job,
         ]);

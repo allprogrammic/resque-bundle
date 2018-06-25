@@ -28,7 +28,7 @@ class StatsController extends Controller
     {
         $redis = $this->get('resque')->getBackend();
 
-        return $this->render('AllProgrammicResqueBundle:stats:index.html.twig', [
+        return $this->render('@AllProgrammicResque/stats/index.html.twig', [
             'infos' => $redis->info(),
         ]);
     }
@@ -38,7 +38,7 @@ class StatsController extends Controller
      */
     public function infoAction()
     {
-        return $this->render('AllProgrammicResqueBundle:stats:info.html.twig', [
+        return $this->render('@AllProgrammicResque/stats/info.html.twig', [
             'infos' => $this->get('resque')->getInfos()
         ]);
     }

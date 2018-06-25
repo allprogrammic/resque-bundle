@@ -35,7 +35,7 @@ class RecurringController extends Controller
             ->setCurrentPage($page)
             ->getCurrentPageResults();
 
-        return $this->render('AllProgrammicResqueBundle:recurring:index.html.twig', [
+        return $this->render('@AllProgrammicResque/recurring/index.html.twig', [
             'jobs'  => $jobs,
             'pager' => $pager
         ]);
@@ -62,7 +62,7 @@ class RecurringController extends Controller
             ->setCurrentPage($page)
             ->getCurrentPageResults();
 
-        return $this->render('AllProgrammicResqueBundle:recurring:history.html.twig', [
+        return $this->render('@AllProgrammicResque/recurring/history.html.twig', [
             'job'   => $job,
             'id'    => $id,
             'jobs'  => $jobs,
@@ -84,7 +84,7 @@ class RecurringController extends Controller
             return $this->redirectToRoute('resque_recurring');
         }
 
-        return $this->render('AllProgrammicResqueBundle:recurring:new.html.twig', [
+        return $this->render('@AllProgrammicResque/recurring/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -108,7 +108,7 @@ class RecurringController extends Controller
             return $this->redirectToRoute('resque_recurring');
         }
 
-        return $this->render('AllProgrammicResqueBundle:recurring:update.html.twig', [
+        return $this->render('@AllProgrammicResque/recurring/update.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -182,7 +182,7 @@ class RecurringController extends Controller
             return $this->redirectToRoute('resque_recurring');
         }
 
-        return $this->render('AllProgrammicResqueBundle:recurring:import.html.twig', [
+        return $this->render('@AllProgrammicResque/recurring/import.html.twig', [
             'form' => $form->createView()
         ]);
     }

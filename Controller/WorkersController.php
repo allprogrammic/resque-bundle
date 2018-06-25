@@ -31,7 +31,7 @@ class WorkersController extends Controller
             $results[$worker->getHost()][] = $worker;
         }
 
-        return $this->render('AllProgrammicResqueBundle:workers:index.html.twig', [
+        return $this->render('@AllProgrammicResque/workers/index.html.twig', [
             'workers' => $results,
             'total'   => count($workers)
         ]);
@@ -60,7 +60,7 @@ class WorkersController extends Controller
         $results = array_combine($workers, $results);
         $results = array_filter($results);
 
-        return $this->render('AllProgrammicResqueBundle:workers:view.html.twig', [
+        return $this->render('@AllProgrammicResque/workers/view.html.twig', [
             'workers'   => $results,
             'hostname' => $hostname
         ]);

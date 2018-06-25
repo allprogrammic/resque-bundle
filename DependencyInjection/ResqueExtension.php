@@ -23,15 +23,15 @@ class ResqueExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $config = new Configuration();
+        $config = $this->processConfiguration($config, $configs);
+        $config = $container->resolveEnvPlaceholders($config, true);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
         // Load config
         $container->setParameter('resque_worker_sleeping', $config['worker']['sleeping']);
-
         $container->setParameter('resque_redis_dsn', $config['redis']['dsn']);
         $container->setParameter('resque_redis_prefix', $config['redis']['prefix']);
     }

@@ -23,7 +23,7 @@ class ChartController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('AllProgrammicResqueBundle:chart:default.html.twig');
+        return $this->render('@AllProgrammicResque/chart/default.html.twig');
     }
 
     /**

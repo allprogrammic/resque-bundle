@@ -8,11 +8,11 @@
         <parameter key="resque_worker_sleeping">5</parameter>
         <parameter key="resque_redis_dsn">redis://127.0.0.1:6379/0</parameter>
         <parameter key="resque_redis_prefix">resque:</parameter>
-        <parameter key="resque_pagination_default_view">AllProgrammicResqueBundle:pagination:default.html.twig</parameter>
+        <parameter key="resque_pagination_default_view">@AllProgrammicResque/pagination/default.html.twig</parameter>
     </parameters>
 
     <services>
-        <service id="resque" class="AllProgrammic\Component\Resque\Engine">
+        <service id="resque" class="AllProgrammic\Component\Resque\Engine" public="true">
             <argument type="service" id="resque.redis.backend" />
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="service_container" />
@@ -27,39 +27,39 @@
             <argument type="service" id="logger" on-invalid="null" />
         </service>
 
-        <service id="resque.status.manager" class="AllProgrammic\Component\Resque\Job\Status">
+        <service id="resque.status.manager" class="AllProgrammic\Component\Resque\Job\Status" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.stat" class="AllProgrammic\Component\Resque\Stat">
+        <service id="resque.stat" class="AllProgrammic\Component\Resque\Stat" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.heart" class="AllProgrammic\Component\Resque\Heart">
+        <service id="resque.heart" class="AllProgrammic\Component\Resque\Heart" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.failure" class="AllProgrammic\Component\Resque\Failure\Redis">
+        <service id="resque.failure" class="AllProgrammic\Component\Resque\Failure\Redis" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.delayed" class="AllProgrammic\Component\Resque\Delayed\Redis">
+        <service id="resque.delayed" class="AllProgrammic\Component\Resque\Delayed\Redis" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.recurring" class="AllProgrammic\Component\Resque\Recurring\Redis">
+        <service id="resque.recurring" class="AllProgrammic\Component\Resque\Recurring\Redis" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.history" class="AllProgrammic\Component\Resque\History\Redis">
+        <service id="resque.history" class="AllProgrammic\Component\Resque\History\Redis" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.charts" class="AllProgrammic\Component\Resque\Charts\Charts">
+        <service id="resque.charts" class="AllProgrammic\Component\Resque\Charts\Charts" public="true">
             <argument type="service" id="resque.redis.backend" />
         </service>
 
-        <service id="resque.lock_delayed" class="AllProgrammic\Component\Resque\Lock">
+        <service id="resque.lock_delayed" class="AllProgrammic\Component\Resque\Lock" public="true">
             <argument type="service" id="resque.redis.backend" />
             <argument>delayed</argument>
         </service>

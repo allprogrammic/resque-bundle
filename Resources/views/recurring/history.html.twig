@@ -1,4 +1,4 @@
-{% extends 'AllProgrammicResqueBundle::layout.html.twig' %}
+{% extends '@AllProgrammicResque/layout.html.twig' %}
 
 {% block link_recurring_attr %} class="active"{% endblock %}
 
@@ -18,7 +18,7 @@
             <th>Status</th>
         </tr>
         {% for id, job in jobs %}
-            {{ include('AllProgrammicResqueBundle:recurring:_history_job.html.twig', {id: id, job: job}, with_context=false) }}
+            {{ include('@AllProgrammicResque/recurring/_history_job.html.twig', {id: id, job: job}, with_context=false) }}
         {% else %}
             <tr>
                 <td colspan="7" class="no-data">There is no history right now...</td>

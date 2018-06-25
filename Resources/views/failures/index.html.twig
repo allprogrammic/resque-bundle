@@ -1,4 +1,4 @@
-{% extends 'AllProgrammicResqueBundle::layout.html.twig' %}
+{% extends '@AllProgrammicResque/layout.html.twig' %}
 
 {% block link_failures_attr %} class="active"{% endblock %}
 
@@ -23,7 +23,7 @@
 
     <ul class="failed">
         {% for id, job in jobs %}
-            {{ include('AllProgrammicResqueBundle:failures:_failed_job.html.twig', {id: id, job: job}, with_context=false) }}
+            {{ include('@AllProgrammicResque/failures/_failed_job.html.twig', {id: id, job: job}, with_context=false) }}
         {% endfor %}
     </ul>
 
