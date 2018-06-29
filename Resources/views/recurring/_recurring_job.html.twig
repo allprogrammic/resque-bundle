@@ -19,6 +19,9 @@
         {{ job.cron }}
     </td>
     <td>
+        <a class="btn btn-default" href="{{ path('resque_recurring_start', {id: id}) }}" title="Start now">
+            <i class="glyphicon glyphicon-repeat"></i>
+        </a>
         <a class="btn btn-default" href="{{ path('resque_recurring_history', {id: id}) }}" title="History">
             <i class="glyphicon glyphicon-list-alt"></i>
         </a>

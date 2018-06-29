@@ -11,14 +11,12 @@
 
 namespace AllProgrammic\Bundle\ResqueBundle\Form;
 
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
-class RecurringJobType extends AbstractType
+class JobType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -28,24 +26,9 @@ class RecurringJobType extends AbstractType
     {
 
         $builder
-            ->add('name', TextType::class, [
-                'attr' => [
-                    'placeholder' => 'task_name',
-                ],
-            ])
-            ->add('description', TextType::class, [
-                'attr' => [
-                    'placeholder' => 'Description of your own task',
-                ],
-            ])
-            ->add('cron', TextType::class, [
-                'attr' => [
-                    'placeholder' => '*/5 * * * *',
-                ],
-            ])
             ->add('class', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'ClassName',
+                    'placeholder' => 'className',
                 ],
             ])
             ->add('queue', TextType::class, [
@@ -54,10 +37,7 @@ class RecurringJobType extends AbstractType
                 ],
             ])
             ->add('args', TextareaType::class, [
-                'data' => '{}'
-            ])
-            ->add('start', CheckboxType::class, [
-                'label' => 'Start now',
+                'data' => '{}',
             ]);
     }
 }

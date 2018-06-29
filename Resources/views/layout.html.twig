@@ -47,9 +47,26 @@
                         <li{% block link_stats_attr %}{% endblock %}>
                             <a href="{{ path('resque_stat') }}">Stats</a>
                         </li>
+                        <li{% block link_jobs_attr %}{% endblock %}>
+                            <a href="{{ path('resque_job_insert') }}" title="Add new job">
+                                <i class="glyphicon glyphicon-plus icon-add-job"></i> Add job
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="flashes">
+            {% for label, messages in app.session.flashbag.all %}
+                {% for message in messages %}
+                    <div class="alert alert-info">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
         </div>
     </div>
 

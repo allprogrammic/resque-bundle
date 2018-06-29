@@ -38,8 +38,6 @@ class WorkerCommand extends ContainerAwareCommand
 
         if (!is_null($logger)) {
             $this->logger = $logger;
-        } else {
-            $this->logger = $this->getContainer()->get('logger');
         }
     }
 
@@ -132,6 +130,14 @@ class WorkerCommand extends ContainerAwareCommand
      */
     private function createWorker($queues, $interval, $blocking, $pidfile, $cyclic)
     {
+        if (is_null($this->logger)) {
+            try {
+                $this->logger = $this->getContainer()->get('logger');
+            } catch (\Exception $ex) {
+                throw new \RuntimeException('Could not get logger', $ex);
+            }
+        }
+
         $worker = new Worker(
             $this->getContainer()->get('resque'),
             $this->getContainer()->get('resque.heart'),

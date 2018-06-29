@@ -15,6 +15,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function overviewAction()
     {
         return $this->render('@AllProgrammicResque/default/overview.html.twig');

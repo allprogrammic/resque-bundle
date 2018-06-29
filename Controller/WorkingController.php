@@ -16,11 +16,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class WorkingController extends Controller
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function viewAction()
     {
         return $this->render('@AllProgrammicResque/working/view.html.twig');
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function workingAction()
     {
         $workers = $this->get('resque')->getSupervisor()->all();
@@ -34,10 +40,7 @@ class WorkingController extends Controller
         }, $workers);
 
         $working_workers = array_combine($workers, $working_workers);
-
         $working_workers = array_filter($working_workers);
-
-        // TODO : sort working by running at
 
         return $this->render('@AllProgrammicResque/working/_working.html.twig', [
             'workers' => $workers,

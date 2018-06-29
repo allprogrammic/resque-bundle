@@ -108,6 +108,10 @@
         <default key="_controller">AllProgrammicResqueBundle:Recurring:remove</default>
     </route>
 
+    <route id="resque_recurring_start" path="/recurring/{id}/start/">
+        <default key="_controller">AllProgrammicResqueBundle:Recurring:start</default>
+    </route>
+
     <!-- Stats -->
 
     <route id="resque_stat" path="/stats/">
@@ -132,6 +136,12 @@
 
     <route id="resque_chart_failures" path="/chart/failures/">
         <default key="_controller">AllProgrammicResqueBundle:Chart:failures</default>
+    </route>
+
+    <!-- Jobs -->
+
+    <route id="resque_job_insert" path="/jobs/insert/">
+        <default key="_controller">AllProgrammicResqueBundle:Job:insert</default>
     </route>
 
 </routes>
