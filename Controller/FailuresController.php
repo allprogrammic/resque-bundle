@@ -20,6 +20,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FailuresController extends Controller
 {
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction(Request $request)
     {
         $page = $request->query->get('page', 1);
@@ -37,6 +42,12 @@ class FailuresController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function showAction(Request $request, $id)
     {
         $job = $this->get('resque')->getBackend()->lIndex('failed', $id);
@@ -82,6 +93,11 @@ class FailuresController extends Controller
         return $this->redirectToRoute('resque_failures');
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function refreshAction(Request $request)
     {
         while ($item = $this->get('resque')->getBackend()->lpop('failed')) {

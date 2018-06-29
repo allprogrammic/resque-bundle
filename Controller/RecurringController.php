@@ -24,6 +24,11 @@ use Symfony\Component\Yaml\Yaml;
 
 class RecurringController extends Controller
 {
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function indexAction(Request $request)
     {
         $page = $request->query->get('page', 1);
@@ -41,6 +46,12 @@ class RecurringController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     *
+     * @return Response
+     */
     public function historyAction(Request $request, $id)
     {
         if (!$job = json_decode($this->get('resque')->getRecurringJob($id), true)) {
@@ -70,6 +81,11 @@ class RecurringController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
     public function insertAction(Request $request)
     {
         $form = $this->createCreateForm();
@@ -89,6 +105,12 @@ class RecurringController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
     public function updateAction(Request $request, $id)
     {
         if (!$data = $this->get('resque')->getRecurringJob($id)) {
@@ -113,6 +135,12 @@ class RecurringController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function removeAction(Request $request, $id)
     {
         if (!$this->get('resque')->getRecurringJob($id)) {
@@ -122,6 +150,18 @@ class RecurringController extends Controller
         $this->get('resque')->removeRecurringJobs($id);
 
         return $this->redirectToRoute('resque_recurring');
+    }
+
+    /**
+     * Force start action
+     *
+     * @param Request $request
+     *
+     * @param $id
+     */
+    public function startAction(Request $request, $id)
+    {
+
     }
 
     /**

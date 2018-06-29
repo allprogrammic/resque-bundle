@@ -17,11 +17,20 @@ use Symfony\Component\HttpFoundation\Request;
 
 class QueuesController extends Controller
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction()
     {
         return $this->render('@AllProgrammicResque/queues/index.html.twig');
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function viewAction(Request $request, $id)
     {
         $queueSize = $this->get('resque')->size($id);
@@ -54,6 +63,11 @@ class QueuesController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function clearAction($id)
     {
         $this->get('resque')->dequeue($id);
@@ -61,6 +75,9 @@ class QueuesController extends Controller
         return $this->redirectToRoute('resque_overview');
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function queuesAction()
     {
         $resque = $this->get('resque');
