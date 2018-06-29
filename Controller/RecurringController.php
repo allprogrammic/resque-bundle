@@ -97,6 +97,10 @@ class RecurringController extends Controller
             // Add recurring job
             $this->get('resque')->insertRecurringJobs($data);
 
+            if ($data['start'] === true) {
+                $this->createJob($data);
+            }
+
             return $this->redirectToRoute('resque_recurring');
         }
 
@@ -161,7 +165,26 @@ class RecurringController extends Controller
      */
     public function startAction(Request $request, $id)
     {
+        if (!$job = $this->get('resque')->getRecurringJob($id)) {
+            throw new NotFoundHttpException('Unable to find recurring job');
+        }
 
+        $job  = json_decode($job, true);
+
+        $this->createJob($job);
+        $this->addFlash('notice', 'Recurring job is currently processing ...');
+
+        return $this->redirectToRoute('resque_recurring');
+    }
+
+    /**
+     * @param $data
+     *
+     * @return mixed
+     */
+    public function createJob($data)
+    {
+        return $this->get('resque')->enqueue($data['queue'], $data['class'], json_decode($data['args'], true));
     }
 
     /**

@@ -53,6 +53,18 @@
         </div>
     </div>
 
+    <div class="container">
+        <div class="flashes">
+            {% for label, messages in app.session.flashbag.all %}
+                {% for message in messages %}
+                    <div class="alert alert-info">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
     <div class="container" id="main">
         {% block content %}{% endblock %}
     </div>

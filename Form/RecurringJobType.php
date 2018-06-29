@@ -11,6 +11,7 @@
 
 namespace AllProgrammic\Bundle\ResqueBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -54,6 +55,9 @@ class RecurringJobType extends AbstractType
             ])
             ->add('args', TextareaType::class, [
                 'data' => '{}'
+            ])
+            ->add('start', CheckboxType::class, [
+                'label' => 'Start now',
             ]);
     }
 }
