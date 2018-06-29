@@ -52,6 +52,8 @@ class RecurringJobType extends AbstractType
                     'placeholder' => 'tasks',
                 ],
             ])
-            ->add('args', TextareaType::class);
+            ->add('args', TextareaType::class, [
+                'data' => '{}'
+            ]);
     }
 }
