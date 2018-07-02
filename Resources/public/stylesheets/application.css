@@ -160,3 +160,8 @@ ul {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+textarea {
+    min-width: 100%;
+    max-width: 100%;
+}

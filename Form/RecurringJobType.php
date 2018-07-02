@@ -53,11 +53,10 @@ class RecurringJobType extends AbstractType
                     'placeholder' => 'tasks',
                 ],
             ])
-            ->add('args', TextareaType::class, [
-                'data' => '{}'
-            ])
+            ->add('args', TextareaType::class, [])
             ->add('start', CheckboxType::class, [
                 'label' => 'Start now',
+                'required' => false,
             ]);
     }
 }

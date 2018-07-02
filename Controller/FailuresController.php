@@ -11,10 +11,12 @@
 
 namespace AllProgrammic\Bundle\ResqueBundle\Controller;
 
+use AllProgrammic\Bundle\ResqueBundle\Form\FailedType;
 use AllProgrammic\Bundle\ResqueBundle\Pagination\Paginator;
 use AllProgrammic\Component\Resque\Job;
 use AllProgrammic\Component\Resque\Worker;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -60,6 +62,46 @@ class FailuresController extends Controller
         return $this->render('@AllProgrammicResque/failures/show.html.twig', [
             'id' => $id,
             'job' => $job,
+        ]);
+    }
+
+    public function editAction(Request $request, $id)
+    {
+        $job = $this->get('resque')->getBackend()->lIndex('failed', $id);
+        $job = json_decode($job, true);
+
+        if (!$job) {
+            throw new NotFoundHttpException('Unable to find job');
+        }
+
+        $args = &$job['payload']['args'][0];
+        $data = ['args' => json_encode($args)];
+        $form = $this->createCreateForm($data);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $args = json_decode($data['args'], true);
+
+            $this->get('resque')->getBackend()->lSet('failed', $id, json_encode($job));
+
+            // Retry failed job
+            if ($data['retry']) {
+                $this->enqueueFailedJob($id);
+            }
+
+            // Remove failed job
+            if ($data['clear']) {
+                $this->removeFailedJob($id);
+            }
+
+            return $this->redirectToRoute('resque_failures');
+        }
+
+        return $this->render('@AllProgrammicResque/failures/edit.html.twig', [
+            'id' => $id,
+            'job' => $job,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -177,5 +219,24 @@ class FailuresController extends Controller
 
         $this->get('resque')->getBackend()->lSet('failed', $id, 'DELETE');
         $this->get('resque')->getBackend()->lRem('failed', $id, 'DELETE');
+    }
+
+    /**
+     * Create form
+     *
+     * @return mixed|\Symfony\Component\Form\FormInterface
+     */
+    public function createCreateForm($data = null)
+    {
+        $form = $this->createForm(FailedType::class, $data);
+
+        $form->add('submit', SubmitType::class, [
+            'label' => 'Save',
+            'attr' => [
+                'class' => 'btn-danger'
+            ]
+        ]);
+
+        return $form;
     }
 }

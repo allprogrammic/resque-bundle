@@ -28,7 +28,7 @@
                 {% endfor %}
             </td>
             <td class="process">
-                {% if working_workers[worker.id] is defined %}
+                {% if working_workers[worker.id] is defined and working_workers[worker.id].job is defined %}
                     <code>{{ working_workers[worker.id].job.payload.class }}<br />{{ working_workers[worker.id].job.payload.args|first|resque_inspect }}</code>
                     <small>{{ working_workers[worker.id].job.run_at }}</small>
                 {% else %}

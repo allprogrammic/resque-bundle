@@ -1,0 +1,20 @@
+{% extends '@AllProgrammicResque/layout.html.twig' %}
+
+{% block link_failures_attr %} class="active"{% endblock %}
+
+{% block content %}
+    <h1>Edit failed job n°{{ id }}</h1>
+
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+    {{ form_start(form) }}
+
+    {{ form_row(form.args) }}
+    {{ form_row(form.retry) }}
+    {{ form_row(form.clear) }}
+    {{ form_widget(form.submit) }}
+
+    <div class="form-group">
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
