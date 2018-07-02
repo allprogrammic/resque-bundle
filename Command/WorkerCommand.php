@@ -128,8 +128,6 @@ class WorkerCommand extends ContainerAwareCommand
         pcntl_signal(SIGINT,  [$this, 'shutdown']);
         pcntl_signal(SIGQUIT, [$this, 'shutdown']);
 
-        register_shutdown_function([$this, 'shutdown']);
-
         for ($i = 0; $i < $count; ++$i) {
             pcntl_signal_dispatch();
 
