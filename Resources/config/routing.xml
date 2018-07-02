@@ -58,6 +58,10 @@
         <default key="_controller">AllProgrammicResqueBundle:Failures:show</default>
     </route>
 
+    <route id="resque_failures_edit" path="/failures/{id}/edit">
+        <default key="_controller">AllProgrammicResqueBundle:Failures:edit</default>
+    </route>
+
     <route id="resque_failures_reload" path="/failures/{id}/reload">
         <default key="_controller">AllProgrammicResqueBundle:Failures:reload</default>
     </route>

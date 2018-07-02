@@ -18,6 +18,9 @@
             {% else %}
             <div class="controls">
                 <div class="btn-group">
+                    <a class="btn btn-default btn-sm" href="{{ path('resque_failures_edit', {id: id}) }}">
+                        <i class="glyphicon glyphicon-pencil"></i> Edit
+                    </a>
                     <a class="btn btn-default btn-sm" href="{{ path('resque_failures_reload', {id: id}) }}">
                         <i class="glyphicon glyphicon-refresh"></i> Retry
                     </a>
