@@ -28,6 +28,16 @@ class WorkerCommand extends ContainerAwareCommand
     private $logger;
 
     /**
+     * @var array
+     */
+    private $pids = [];
+
+    /**
+     * @var bool
+     */
+    private $shutdown = false;
+
+    /**
      * WorkerCommand constructor.
      *
      * @param LoggerInterface $logger
@@ -67,6 +77,7 @@ class WorkerCommand extends ContainerAwareCommand
     {
         $queues   = explode(',', $input->getArgument('queues'));
 
+        $count    = (int) $input->getOption('count');
         $interval = $input->getOption('interval');
         $blocking = $input->getOption('blocking');
         $pidfile  = $input->getOption('pidfile');
@@ -83,10 +94,12 @@ class WorkerCommand extends ContainerAwareCommand
             throw new \RuntimeException(sprintf('Could not write PID information to %s', $pidfile));
         }
 
-        if ($count = $input->getOption('count') > 1) {
-            $this->spawnWorkers($count, $queues, $interval, $blocking, $pidfile, $cyclic);
-
-            return;
+        if ($count > 1) {
+            try {
+                return $this->spawnWorkers($count, $queues, $interval, $blocking, $pidfile, $cyclic);
+            } catch (\Exception $ex) {
+                $this->shutdown();
+            }
         }
 
         $this->createWorker($queues, $interval, $blocking, $pidfile, $cyclic);
@@ -104,19 +117,54 @@ class WorkerCommand extends ContainerAwareCommand
      */
     private function spawnWorkers($count, $queues, $interval, $blocking, $pidfile, $cyclic)
     {
+        $status = null;
+        $master = true;
+
+        if (!function_exists('pcntl_signal')) {
+            return;
+        }
+
+        pcntl_signal(SIGTERM, [$this, 'shutdown']);
+        pcntl_signal(SIGINT,  [$this, 'shutdown']);
+        pcntl_signal(SIGQUIT, [$this, 'shutdown']);
+
+        register_shutdown_function([$this, 'shutdown']);
+
         for ($i = 0; $i < $count; ++$i) {
-            $pid = $this->getContainer()->get('resque')->fork();
+            pcntl_signal_dispatch();
 
-            if ($pid == -1) {
-                throw new \RuntimeException(sprintf('Could not fork worker %', $i));
-            }
-
-            if (!$pid) {
-                // Child, start the worker
-                $this->createWorker($queues, $interval, $blocking, $pidfile, $cyclic);
+            if ($this->shutdown) {
                 break;
             }
+
+            $pid = pcntl_fork();
+
+            if ($pid === -1) {
+                throw new \RuntimeException(sprintf('Could not fork worker %s', $i));
+            }
+
+            if ($pid === 0 || $pid === null) {
+                $master = false;
+                $this->pids[] = $pid;
+                $this->createWorker($queues, $interval, $blocking, $pidfile, $cyclic);
+                exit(0);
+            }
         }
+
+        if ($master) {
+            pcntl_wait($status);
+        }
+    }
+
+    public function shutdown()
+    {
+        $this->shutdown = true;
+
+        foreach ($this->pids as $pid) {
+            posix_kill($pid, SIGQUIT);
+        }
+
+        exit(0);
     }
 
     /**
