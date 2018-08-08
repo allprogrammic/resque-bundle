@@ -251,6 +251,46 @@ class RecurringController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function enableAction(Request $request, $id)
+    {
+        if (!$job = $this->get('resque')->getRecurringJob($id)) {
+            throw new NotFoundHttpException('Unable to find recurring job');
+        }
+
+        $job = json_decode($job, true);
+        $job['active'] = true;
+
+        $this->get('resque')->updateRecurringJobs($id, $job);
+
+        return $this->redirectToRoute('resque_recurring');
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function disableAction(Request $request, $id)
+    {
+        if (!$job = $this->get('resque')->getRecurringJob($id)) {
+            throw new NotFoundHttpException('Unable to find recurring job');
+        }
+
+        $job = json_decode($job, true);
+        $job['active'] = false;
+
+        $this->get('resque')->updateRecurringJobs($id, $job);
+
+        return $this->redirectToRoute('resque_recurring');
+    }
+
+    /**
      * Create form
      *
      * @return mixed|\Symfony\Component\Form\FormInterface

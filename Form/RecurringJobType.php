@@ -57,6 +57,10 @@ class RecurringJobType extends AbstractType
             ->add('start', CheckboxType::class, [
                 'label' => 'Start now',
                 'required' => false,
+            ])
+            ->add('active', CheckboxType::class, [
+                'label' => 'Enable',
+                'required' => false
             ]);
     }
 }
