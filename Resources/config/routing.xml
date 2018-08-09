@@ -116,6 +116,14 @@
         <default key="_controller">AllProgrammicResqueBundle:Recurring:start</default>
     </route>
 
+    <route id="resque_recurring_enable" path="/recurring/{id}/enable/">
+        <default key="_controller">AllProgrammicResqueBundle:Recurring:enable</default>
+    </route>
+
+    <route id="resque_recurring_disable" path="/recurring/{id}/disable/">
+        <default key="_controller">AllProgrammicResqueBundle:Recurring:disable</default>
+    </route>
+
     <!-- Stats -->
 
     <route id="resque_stat" path="/stats/">
