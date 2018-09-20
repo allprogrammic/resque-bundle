@@ -11,17 +11,30 @@
 
 namespace AllProgrammic\Bundle\ResqueBundle\Command;
 
+use AllProgrammic\Component\Resque\Engine;
 use Psr\Log\LogLevel;
 use AllProgrammic\Component\Resque\Worker;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class RecurringCommand extends ContainerAwareCommand
+class RecurringCommand extends Command
 {
+    /**
+     * @var Engine
+     */
+    private $resque;
+
+    public function __construct(Engine $resque)
+    {
+        $this->resque = $resque;
+
+        parent::__construct();
+    }
+
     protected function configure()
     {
         $this
@@ -77,7 +90,7 @@ class RecurringCommand extends ContainerAwareCommand
 
                 $result['name'] = $key;
 
-                $this->getContainer()->get('resque')->insertRecurringJobs($result);
+                $this->resque->insertRecurringJobs($result);
             }
         }
     }

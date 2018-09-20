@@ -79,5 +79,21 @@
             <argument>%resque_pagination_default_view%</argument>
             <tag name="twig.extension" />
         </service>
+
+        <service id="resque.command.recurring" class="AllProgrammic\Bundle\ResqueBundle\Command\RecurringCommand">
+            <argument type="service" id="resque" />
+            <tag name="console.command" command="resque:recurring:load" />
+        </service>
+
+        <service id="resque.command.worker" class="AllProgrammic\Bundle\ResqueBundle\Command\WorkerCommand">
+            <argument type="service" id="resque" />
+            <argument type="service" id="resque.heart" />
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="resque.failure" />
+            <argument type="service" id="resque.lock_delayed" />
+            <argument>%resque_worker_sleeping%</argument>
+            <argument type="service" id="logger" />
+            <tag name="console.command" command="resque:worker" />
+        </service>
     </services>
 </container>

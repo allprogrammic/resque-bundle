@@ -11,17 +11,53 @@
 
 namespace AllProgrammic\Bundle\ResqueBundle\Command;
 
+use AllProgrammic\Component\Resque\Engine;
+use AllProgrammic\Component\Resque\Failure\Redis;
+use AllProgrammic\Component\Resque\Heart;
+use AllProgrammic\Component\Resque\Lock;
 use Psr\Log\LogLevel;
 use Psr\Log\LoggerInterface;
 use AllProgrammic\Component\Resque\Worker;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class WorkerCommand extends ContainerAwareCommand
+class WorkerCommand extends Command
 {
+    /**
+     * @var Engine
+     */
+    private $resque;
+
+    /**
+     * @var Heart
+     */
+    private $resqueHeartbeat;
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
+     * @var Redis
+     */
+    private $failureQueue;
+
+    /**
+     * @var Lock
+     */
+    private $lockDelayed;
+
+    /**
+     * @var int
+     */
+    private $sleepInterval;
+
     /**
      * @var LoggerInterface
      */
@@ -42,13 +78,24 @@ class WorkerCommand extends ContainerAwareCommand
      *
      * @param LoggerInterface $logger
      */
-    public function __construct(LoggerInterface $logger = null)
-    {
+    public function __construct(
+        Engine $resque,
+        Heart $resqueHeartbeat,
+        EventDispatcherInterface $eventDispatcher,
+        Redis $failureQueue,
+        Lock $lockDelayed,
+        int $interval,
+        LoggerInterface $logger
+    ) {
         parent::__construct();
 
-        if (!is_null($logger)) {
-            $this->logger = $logger;
-        }
+        $this->resque = $resque;
+        $this->resqueHeartbeat = $resqueHeartbeat;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->failureQueue = $failureQueue;
+        $this->lockDelayed = $lockDelayed;
+        $this->sleepInterval = $interval;
+        $this->logger = $logger;
     }
 
     protected function configure()
@@ -87,7 +134,7 @@ class WorkerCommand extends ContainerAwareCommand
         $cyclic   = filter_var($cyclic, FILTER_VALIDATE_BOOLEAN);
 
         if (is_null($interval)) {
-            $interval = $this->getContainer()->getParameter('resque_worker_sleeping');
+            $interval = $this->sleepInterval;
         }
 
         if ($pidfile && false === file_put_contents($pidfile, getmypid())) {
@@ -177,19 +224,15 @@ class WorkerCommand extends ContainerAwareCommand
     private function createWorker($queues, $interval, $blocking, $pidfile, $cyclic)
     {
         if (is_null($this->logger)) {
-            try {
-                $this->logger = $this->getContainer()->get('logger');
-            } catch (\Exception $ex) {
-                throw new \RuntimeException('Could not get logger', $ex);
-            }
+            throw new \RuntimeException('Could not get logger', $ex);
         }
 
         $worker = new Worker(
-            $this->getContainer()->get('resque'),
-            $this->getContainer()->get('resque.heart'),
-            $this->getContainer()->get('event_dispatcher'),
-            $this->getContainer()->get('resque.failure'),
-            $this->getContainer()->get('resque.lock_delayed'),
+            $this->resque,
+            $this->resqueHeartbeat,
+            $this->eventDispatcher,
+            $this->failureQueue,
+            $this->lockDelayed,
             $queues,
             $cyclic,
             $this->logger
