@@ -1,0 +1,23 @@
+<tr>
+    <td>
+        {{ task.class }}
+    </td>
+    <td>
+        {% if task.exception is not empty %}
+            <code>{{ task.exception }}</code>
+        {% else %}
+            <code>Catch all exceptions</code>
+        {% endif %}
+    </td>
+    <td>
+        <span class="label label-danger">{{ task.attempts }}</span>
+    </td>
+    <td class="text-right">
+        <a class="btn btn-sm btn-default" href="{{ path('resque_cleaner_edit', {id: id}) }}" title="Update">
+            Update
+        </a>
+        <a class="btn btn-sm btn-danger" href="{{ path('resque_cleaner_remove', {id: id}) }}" title="Remove">
+            <i class="glyphicon glyphicon-trash"></i> Delete
+        </a>
+    </td>
+</tr>

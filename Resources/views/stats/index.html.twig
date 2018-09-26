@@ -7,7 +7,7 @@
     {{ render(controller('AllProgrammicResqueBundle:Stats:info')) }}
 
     <h1 class="wi">Redis</h1>
-    <table class="table table-bordered stats">
+    <table class="table table-striped stats">
         {% for key, value in infos %}
             <tr>
                 <th>{{ key }}</th>

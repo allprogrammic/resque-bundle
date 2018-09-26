@@ -24,6 +24,8 @@ ul {
     border-width: 0;
 }
 
+.navbar li a i { vertical-align: text-top;}
+
 .navbar-inverse .nav>.active {
     background: #fa2424; /* Old browsers */
     background: -moz-linear-gradient(top, #fa2424 0%, #ce1212 100%); /* FF3.6+ */
@@ -154,7 +156,7 @@ ul {
 }
 
 .flashes { margin-top: 20px; }
-.icon-add-job { font-size: 11px; top: 0; }
+.btn-add-job { margin-top: 7px; float:right; color: #d4d4d4; background-color: #2f2f2f; border-color: #616161; }
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

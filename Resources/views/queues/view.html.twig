@@ -6,7 +6,7 @@
 <h1>Pending jobs on <span class='hl'>{{ queueId }}</span></h1>
 
 <p class="sub">Showing {{ startAt }} to {{ endAt }} of <b>{{ size }}</b> jobs</p>
-<table class="table table-bordered jobs">
+<table class="table table-striped jobs">
     <tr>
         <th>Class</th>
         <th>Args</th>
@@ -14,7 +14,7 @@
     {% for job in jobs %}
         <tr>
             <td class='class'>{{ job.class }}<br /><small>{{ job.queue_time|date }}</small></td>
-            <td class='args'>{{ job.args|resque_inspect }}</td>
+            <td class='args'>{{ job.args|resque_inspect }}{{ dump(job) }}</td>
         </tr>
     {% else %}
         <tr>
