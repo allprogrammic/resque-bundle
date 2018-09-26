@@ -156,7 +156,7 @@ ul {
 }
 
 .flashes { margin-top: 20px; }
-.btn-add-job { margin-top: 7px; float:right; }
+.btn-add-job { margin-top: 7px; float:right; color: #d4d4d4; background-color: #2f2f2f; border-color: #616161; }
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
