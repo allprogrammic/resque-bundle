@@ -150,6 +150,10 @@
         <default key="_controller">AllProgrammicResqueBundle:Chart:failures</default>
     </route>
 
+    <route id="resque_chart_cleaner" path="/chart/cleaner/">
+        <default key="_controller">AllProgrammicResqueBundle:Chart:cleaner</default>
+    </route>
+
     <!-- Jobs -->
 
     <route id="resque_job_insert" path="/jobs/insert/">

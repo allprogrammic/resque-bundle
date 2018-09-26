@@ -53,6 +53,17 @@ class ChartController extends Controller
     }
 
     /**
+     * @return JsonResponse
+     */
+    public function cleanerAction()
+    {
+        $data = $this->get('resque.charts')->getCleaned()->peek(0, 0);
+        $data = $this->getData($data);
+
+        return new JsonResponse($data);
+    }
+
+    /**
      * @param $data
      * @param int $interval
      *
