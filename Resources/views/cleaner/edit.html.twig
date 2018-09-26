@@ -1,0 +1,19 @@
+{% extends '@AllProgrammicResque/layout.html.twig' %}
+
+{% block link_cleaner_attr %} class="active"{% endblock %}
+
+{% block content %}
+    <h1>Update cleaner task</h1>
+
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+    {{ form_start(form) }}
+
+    {{ form_row(form.class) }}
+    {{ form_row(form.exception) }}
+    {{ form_row(form.attempts) }}
+    {{ form_widget(form.submit) }}
+
+    <div class="form-group">
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

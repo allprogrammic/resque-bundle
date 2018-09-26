@@ -7,7 +7,7 @@
         <dt>Worker</dt>
         <dd>
             {{ job.worker|split(':')|slice(0, 2)|join(':') }}
-            on <b class="label label-info">{{ job.queue }}</b >
+            on <b class="label label-default">{{ job.queue }}</b >
             at <b><span class="time">{{ job.failed_at.date }}</span></b>
 
             {% if job.retried_at is defined %}
@@ -42,6 +42,14 @@
             <code>nil</code>
             {% endif %}
         </dd>
+        <dt>Attempts</dt>
+        <dd>
+            {% if job.payload is defined and job.payload.attempts %}
+                <span class="label label-danger">{{ job.payload.attempts }}</span>
+            {% else %}
+                <span class="label label-danger"></span>
+            {% endif %}
+        </dd>
         <dt>Arguments</dt>
         <dd>{{ job.payload.args|default(null)|resque_inspect }}</dd>
         <dt>Exception</dt>
@@ -50,7 +58,7 @@
         <dd class="error">
             {% if job.backtrace is defined and job.backtrace is not empty %}
             <div class="toggle">
-                <i class="glyphicon glyphicon-exclamation-sign"></i> <b>Error</b> : {{ job.error }}
+                <i class="glyphicon glyphicon-exclamation-sign"></i> {{ job.error }}
                 <pre>{{ job.backtrace|join("\r") }}</pre>
             </div>
             {% else %}

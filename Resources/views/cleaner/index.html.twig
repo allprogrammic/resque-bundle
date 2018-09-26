@@ -1,0 +1,32 @@
+{% extends '@AllProgrammicResque/layout.html.twig' %}
+
+{% block link_cleaner_attr %} class="active"{% endblock %}
+
+{% block content %}
+<div class="form-group pull-right">
+    <a class="btn btn-default" href="{{ path('resque_cleaner_insert') }}">
+        <i class="glyphicon glyphicon-plus"></i> Add new cleaner task
+    </a>
+</div>
+
+<h1>Cleaner</h1>
+<p class="sub">Showing {{ pager.currentFrom }} to {{ pager.currentCount }} of <b>{{ pager.count }}</b> cleaner tasks</p>
+
+<table class="table table-striped">
+    <tr>
+        <th>Class</th>
+        <th>Exception</th>
+        <th>Attempts</th>
+        <th></th>
+    </tr>
+    <tr>
+        {% for id, task in tasks %}
+            {{ include('@AllProgrammicResque/cleaner/_cleaner_task.html.twig', {id: id, task: task}, with_context=false) }}
+        {% else %}
+            <td colspan="4" class="no-data">There is not cleaner task right now...</td>
+        {% endfor %}
+    </tr>
+</table>
+
+{{ pagination(pager, 'resque_recurring') }}
+{% endblock %}

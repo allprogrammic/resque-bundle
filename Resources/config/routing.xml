@@ -156,4 +156,22 @@
         <default key="_controller">AllProgrammicResqueBundle:Job:insert</default>
     </route>
 
+    <!-- Cleaner -->
+
+    <route id="resque_cleaner" path="/cleaner/">
+        <default key="_controller">AllProgrammicResqueBundle:Cleaner:index</default>
+    </route>
+
+    <route id="resque_cleaner_insert" path="/cleaner/insert/">
+        <default key="_controller">AllProgrammicResqueBundle:Cleaner:insert</default>
+    </route>
+
+    <route id="resque_cleaner_edit" path="/cleaner/{id}/edit">
+        <default key="_controller">AllProgrammicResqueBundle:Cleaner:edit</default>
+    </route>
+
+    <route id="resque_cleaner_remove" path="/cleaner/{id}/remove">
+        <default key="_controller">AllProgrammicResqueBundle:Cleaner:remove</default>
+    </route>
+
 </routes>
