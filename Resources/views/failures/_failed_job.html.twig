@@ -47,7 +47,7 @@
             {% if job.payload is defined and job.payload.attempts %}
                 <span class="label label-danger">{{ job.payload.attempts }}</span>
             {% else %}
-                <span class="label label-danger"></span>
+                <span class="label label-danger">0</span>
             {% endif %}
         </dd>
         <dt>Arguments</dt>
