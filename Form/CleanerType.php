@@ -30,7 +30,7 @@ class CleanerType extends AbstractType
             ->add('class', TextType::class, [
                 'attr' => [
                     'autocomplete' => 'off',
-                    'placeholder' => 'ClassName',
+                    'placeholder' => 'Define the className',
                 ],
             ])
             ->add('exception', TextType::class, [
