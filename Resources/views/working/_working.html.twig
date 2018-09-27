@@ -13,7 +13,7 @@
     </tr>
     {% for worker in workers %}
         <tr>
-            <td class="icon">
+            <td>
                 <img src="{{ asset('bundles/allprogrammicresque/images/' ~ (worker.idle ? 'idle' : 'working') ~ '.png') }}" alt="" />
             </td>
             <td>
