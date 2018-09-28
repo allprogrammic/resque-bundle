@@ -7,7 +7,8 @@
         <dt>Worker</dt>
         <dd>
             {{ job.worker|split(':')|slice(0, 2)|join(':') }}
-            on <b class="label label-default">{{ job.queue }}</b >
+            on <b class="label label-default">{{ job.queue }}</b>
+            with <span class="label label-danger">{% if job.payload is defined and job.payload.attempts %}{{ job.payload.attempts }}{% else %}0 attempts{% endif %}</span>
             at <b><span class="time">{{ job.failed_at.date }}</span></b>
 
             {% if job.retried_at is defined %}
@@ -40,14 +41,6 @@
             <code>{{ job.payload.class }}</code>
             {% else %}
             <code>nil</code>
-            {% endif %}
-        </dd>
-        <dt>Attempts</dt>
-        <dd>
-            {% if job.payload is defined and job.payload.attempts %}
-                <span class="label label-danger">{{ job.payload.attempts }}</span>
-            {% else %}
-                <span class="label label-danger">0</span>
             {% endif %}
         </dd>
         <dt>Arguments</dt>

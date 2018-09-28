@@ -9,6 +9,11 @@
     {{ form_start(form) }}
 
     {{ form_row(form.class) }}
+
+    <div class="alert alert-warning help-block">
+        You can define your regex as following : class.name.*
+    </div>
+
     {{ form_row(form.exception) }}
     {{ form_row(form.attempts) }}
     {{ form_widget(form.submit) }}
