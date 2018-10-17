@@ -12,7 +12,7 @@
     </parameters>
 
     <services>
-        <service id="resque" class="AllProgrammic\Component\Resque\Engine" public="true">
+        <service id="AllProgrammic\Component\Resque\Engine" class="AllProgrammic\Component\Resque\Engine">
             <argument type="service" id="resque.redis.backend" />
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="service_container" />
@@ -27,6 +27,7 @@
             <argument type="service" id="resque.lock_delayed" />
             <argument type="service" id="logger" on-invalid="null" />
         </service>
+        <service id="resque" alias="AllProgrammic\Component\Resque\Engine" public="true" />
 
         <service id="resque.status.manager" class="AllProgrammic\Component\Resque\Job\Status" public="true">
             <argument type="service" id="resque.redis.backend" />
