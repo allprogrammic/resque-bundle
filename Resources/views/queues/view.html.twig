@@ -14,7 +14,7 @@
     {% for job in jobs %}
         <tr>
             <td class='class'>{{ job.class }}<br /><small>{{ job.queue_time|date }}</small></td>
-            <td class='args'>{{ job.args|resque_inspect }}{{ dump(job) }}</td>
+            <td class='args'>{{ job.args|resque_inspect }}</td>
         </tr>
     {% else %}
         <tr>
