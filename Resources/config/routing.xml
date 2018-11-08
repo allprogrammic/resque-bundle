@@ -7,175 +7,175 @@
     <!-- Default -->
 
     <route id="resque_overview" path="/">
-        <default key="_controller">AllProgrammicResqueBundle:Default:overview</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\DefaultController::overviewAction</default>
     </route>
 
     <!-- Working -->
 
     <route id="resque_working" path="/working/">
-        <default key="_controller">AllProgrammicResqueBundle:Working:view</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\WorkingController::viewAction</default>
     </route>
 
     <route id="resque_working_working" path="/working/controller/working">
-        <default key="_controller">AllProgrammicResqueBundle:Working:working</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\WorkingController::workingAction</default>
     </route>
 
     <!-- Workers -->
 
     <route id="resque_workers" path="/workers/">
-        <default key="_controller">AllProgrammicResqueBundle:Workers:index</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\WorkersController::indexAction</default>
     </route>
 
     <route id="resque_workers_view" path="/workers/{hostname}">
-        <default key="_controller">AllProgrammicResqueBundle:Workers:view</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\WorkersController::viewAction</default>
     </route>
 
     <!-- Queues -->
 
     <route id="resque_queues" path="/queues/">
-        <default key="_controller">AllProgrammicResqueBundle:Queues:index</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\QueuesController::indexAction</default>
     </route>
 
     <route id="resque_queues_view" path="/queues/{id}">
-        <default key="_controller">AllProgrammicResqueBundle:Queues:view</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\QueuesController::viewAction</default>
     </route>
 
     <route id="resque_queues_queues" path="/queues/controller/queues/">
-        <default key="_controller">AllProgrammicResqueBundle:Queues:queues</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\QueuesController::queuesAction</default>
     </route>
 
     <route id="resque_queues_clear" path="/queues/{id}/clear">
-        <default key="_controller">AllProgrammicResqueBundle:Queues:clear</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\QueuesController::clearAction</default>
     </route>
 
     <!-- Failures -->
 
     <route id="resque_failures" path="/failures/">
-        <default key="_controller">AllProgrammicResqueBundle:Failures:index</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\FailuresController::indexAction</default>
     </route>
 
     <route id="resque_failures_show" path="/failures/{id}/show/">
-        <default key="_controller">AllProgrammicResqueBundle:Failures:show</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\FailuresController::showAction</default>
     </route>
 
     <route id="resque_failures_edit" path="/failures/{id}/edit">
-        <default key="_controller">AllProgrammicResqueBundle:Failures:edit</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\FailuresController::editAction</default>
     </route>
 
     <route id="resque_failures_reload" path="/failures/{id}/reload">
-        <default key="_controller">AllProgrammicResqueBundle:Failures:reload</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\FailuresController::reloadAction</default>
     </route>
 
     <route id="resque_failures_remove" path="/failures/{id}/remove">
-        <default key="_controller">AllProgrammicResqueBundle:Failures:remove</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\FailuresController::removeAction</default>
     </route>
 
     <route id="resque_failures_clear" path="/failures/clear/">
-        <default key="_controller">AllProgrammicResqueBundle:Failures:clear</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\FailuresController::clearAction</default>
     </route>
 
     <route id="resque_failures_refresh" path="/failures/refresh/">
-        <default key="_controller">AllProgrammicResqueBundle:Failures:refresh</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\FailuresController::refreshAction</default>
     </route>
 
     <route id="resque_failures_enqueue" path="/failures/{id}/enqueue">
-        <default key="_controller">AllProgrammicResqueBundle:Failures:enqueue</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\FailuresController::enqueueAction</default>
     </route>
 
     <!-- Recurring jobs -->
 
     <route id="resque_recurring" path="/recurring/">
-        <default key="_controller">AllProgrammicResqueBundle:Recurring:index</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\RecurringController::indexAction</default>
     </route>
 
     <route id="resque_recurring_history" path="/recurring/{id}/history/">
-        <default key="_controller">AllProgrammicResqueBundle:Recurring:history</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\RecurringController::historyAction</default>
     </route>
 
     <route id="resque_recurring_insert" path="/recurring/insert/">
-        <default key="_controller">AllProgrammicResqueBundle:Recurring:insert</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\RecurringController::insertAction</default>
     </route>
 
     <route id="resque_recurring_export" path="/recurring/export/">
-        <default key="_controller">AllProgrammicResqueBundle:Recurring:export</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\RecurringController::exportAction</default>
     </route>
 
     <route id="resque_recurring_import" path="/recurring/import/">
-        <default key="_controller">AllProgrammicResqueBundle:Recurring:import</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\RecurringController::importAction</default>
     </route>
 
     <route id="resque_recurring_update" path="/recurring/{id}/update/">
-        <default key="_controller">AllProgrammicResqueBundle:Recurring:update</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\RecurringController::updateAction</default>
     </route>
 
     <route id="resque_recurring_remove" path="/recurring/{id}/remove/">
-        <default key="_controller">AllProgrammicResqueBundle:Recurring:remove</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\RecurringController::removeAction</default>
     </route>
 
     <route id="resque_recurring_start" path="/recurring/{id}/start/">
-        <default key="_controller">AllProgrammicResqueBundle:Recurring:start</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\RecurringController::startAction</default>
     </route>
 
     <route id="resque_recurring_enable" path="/recurring/{id}/enable/">
-        <default key="_controller">AllProgrammicResqueBundle:Recurring:enable</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\RecurringController::enableAction</default>
     </route>
 
     <route id="resque_recurring_disable" path="/recurring/{id}/disable/">
-        <default key="_controller">AllProgrammicResqueBundle:Recurring:disable</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\RecurringController::disableAction</default>
     </route>
 
     <!-- Stats -->
 
     <route id="resque_stat" path="/stats/">
-        <default key="_controller">AllProgrammicResqueBundle:Stats:index</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\StatsController::indexAction</default>
     </route>
 
     <!-- Delayed -->
 
     <route id="resque_delayed" path="/delayed/">
-        <default key="_controller">AllProgrammicResqueBundle:Delayed:index</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\DelayedController::indexAction</default>
     </route>
 
     <!-- Chart -->
 
     <route id="resque_chart" path="/chart/">
-        <default key="_controller">AllProgrammicResqueBundle:Chart:index</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\ChartController::indexAction</default>
     </route>
 
     <route id="resque_chart_processed" path="/chart/processed/">
-        <default key="_controller">AllProgrammicResqueBundle:Chart:processed</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\ChartController::processedAction</default>
     </route>
 
     <route id="resque_chart_failures" path="/chart/failures/">
-        <default key="_controller">AllProgrammicResqueBundle:Chart:failures</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\ChartController::failuresAction</default>
     </route>
 
     <route id="resque_chart_cleaner" path="/chart/cleaner/">
-        <default key="_controller">AllProgrammicResqueBundle:Chart:cleaner</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\ChartController::cleanerAction</default>
     </route>
 
     <!-- Jobs -->
 
     <route id="resque_job_insert" path="/jobs/insert/">
-        <default key="_controller">AllProgrammicResqueBundle:Job:insert</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\JobController::insertAction</default>
     </route>
 
     <!-- Cleaner -->
 
     <route id="resque_cleaner" path="/cleaner/">
-        <default key="_controller">AllProgrammicResqueBundle:Cleaner:index</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\CleanerController::indexAction</default>
     </route>
 
     <route id="resque_cleaner_insert" path="/cleaner/insert/">
-        <default key="_controller">AllProgrammicResqueBundle:Cleaner:insert</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\CleanerController::insertAction</default>
     </route>
 
     <route id="resque_cleaner_edit" path="/cleaner/{id}/edit">
-        <default key="_controller">AllProgrammicResqueBundle:Cleaner:edit</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\CleanerController::editAction</default>
     </route>
 
     <route id="resque_cleaner_remove" path="/cleaner/{id}/remove">
-        <default key="_controller">AllProgrammicResqueBundle:Cleaner:remove</default>
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\CleanerController::removeAction</default>
     </route>
 
 </routes>
