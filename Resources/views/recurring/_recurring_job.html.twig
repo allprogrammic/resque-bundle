@@ -21,15 +21,15 @@
     <td class="text-right">
         {% if job.active is not defined or job.active %}
             <a class="btn btn-sm btn-danger" href="{{ path('resque_recurring_disable', {id: id}) }}" title="Disable">
-                <i class="glyphicon glyphicon-unchecked"></i> Disable
+                <i class="glyphicon glyphicon-pause"></i> Disable
             </a>
         {% else %}
             <a class="btn btn-sm btn-success" href="{{ path('resque_recurring_enable', {id: id}) }}" title="Enable">
-                <i class="glyphicon glyphicon-check"></i> Enable
+                <i class="glyphicon glyphicon-play"></i> Enable
             </a>
         {% endif %}
         <a class="btn btn-sm btn-default" href="{{ path('resque_recurring_start', {id: id}) }}" title="Start now">
-            <i class="glyphicon glyphicon-repeat"></i>
+            <i class="glyphicon glyphicon-forward"></i>
         </a>
         <a class="btn btn-sm btn-default" href="{{ path('resque_recurring_history', {id: id}) }}" title="History">
             <i class="glyphicon glyphicon-list-alt"></i>

@@ -14,6 +14,7 @@ namespace AllProgrammic\Bundle\ResqueBundle\Controller;
 use AllProgrammic\Bundle\ResqueBundle\Form\ImportType;
 use AllProgrammic\Bundle\ResqueBundle\Form\RecurringJobType;
 use AllProgrammic\Bundle\ResqueBundle\Pagination\Paginator;
+use AllProgrammic\Component\Resque\RecurringJob;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -171,6 +172,10 @@ class RecurringController extends Controller
 
         $job  = json_decode($job, true);
 
+        if (isset($job['name'])) {
+            $this->deleteRecurringJob($job);
+        }
+
         $this->createJob($job);
         $this->addFlash('notice', 'Recurring job is currently processing ...');
 
@@ -307,5 +312,17 @@ class RecurringController extends Controller
         ]);
 
         return $form;
+    }
+
+    /**
+     * @param $job
+     */
+    private function deleteRecurringJob($job)
+    {
+        $key = sprintf('%s:%s', RecurringJob::KEY_RECURRING_JOBS, $job['name']);
+
+        if ($this->get('resque')->getBackend()->exists($key)) {
+            $this->get('resque')->getBackend()->del($key);
+        }
     }
 }
