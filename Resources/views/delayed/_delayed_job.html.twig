@@ -1,5 +1,8 @@
 <tr>
     <td>
+        {{ job.name }}
+    </td>
+    <td>
         <span class="time">
             {{ job.start_at | date }}
         </span>
@@ -16,7 +19,28 @@
             {{ job.queue }}
         </a>
     </td>
-    <td>
-        {{ job.args|resque_inspect }}
+    <td class="text-right">
+        <div class="btn btn-sm btn-default" data-micromodal-trigger="modal-{{ id }}">
+            <i class="glyphicon glyphicon-search"></i> Details
+        </div>
+        <div class="modal micromodal-slide" id="modal-{{ id }}" aria-hidden="true">
+            <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-{{ id }}-title">
+                    <header class="modal__header">
+                        <h2 class="modal__title" id="modal-{{ id }}-title">
+                            Details
+                        </h2>
+                        <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                    </header>
+                    <main class="modal__content text-left" id="modal-{{ id }}-content">
+                        {{ job.args|resque_inspect }}
+                    </main>
+                </div>
+            </div>
+        </div>
+
+        <a class="btn btn-sm btn-danger" href="{{ path('resque_delayed_remove', {id: id}) }}" title="Remove">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
     </td>
 </tr>

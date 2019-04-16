@@ -140,6 +140,10 @@
         <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\DelayedController::indexAction</default>
     </route>
 
+    <route id="resque_delayed_remove" path="/delayed/{id}/remove">
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\DelayedController::removeAction</default>
+    </route>
+
     <!-- Chart -->
 
     <route id="resque_chart" path="/chart/">

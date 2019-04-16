@@ -9,20 +9,26 @@
 
 <table class="table table-striped workers">
     <tr>
+        <th>Name</th>
         <th>Start at</th>
         <th>Class</th>
         <th>Queue</th>
-        <th>Args</th>
+        <th></th>
     </tr>
     {% for id, job in jobs %}
         {{ include('@AllProgrammicResque/delayed/_delayed_job.html.twig', {id: id, job: job}, with_context=false) }}
     {% else %}
         <tr>
-            <td colspan="4" class="no-data">Nothing is delayed right now...</td>
+            <td colspan="5" class="no-data">Nothing is delayed right now...</td>
         </tr>
     {% endfor %}
 </table>
 
 {{ pagination(pager, 'resque_delayed') }}
+{% endblock %}
 
+{% block add_javascripts %}
+    <script type="text/javascript">
+        MicroModal.init();
+    </script>
 {% endblock %}
