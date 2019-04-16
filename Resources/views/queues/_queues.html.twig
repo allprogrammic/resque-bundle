@@ -5,6 +5,7 @@
     <tr>
         <th>Name</th>
         <th>Jobs</th>
+        <th></th>
     </tr>
 
     {% for queue, size in queues %}
@@ -14,9 +15,16 @@
             </td>
             <td class="size">
                 {{ size }}
-                <a href="{{ path('resque_queues_clear', {id: queue}) }}" class="btn btn-xs btn-default pull-right" title="Clear">
-                    Clear
-                </a>
+            </td>
+            <td>
+                <div class="pull-right">
+                    <a href="{{ path('resque_queues_clear', {id: queue}) }}" class="btn btn-xs btn-default" title="Clear">
+                        Clear
+                    </a>
+                    <a href="{{ path('resque_queues_delete', {id: queue}) }}" class="btn btn-xs btn-danger" title="Delete">
+                        Delete
+                    </a>
+                </div>
             </td>
         </tr>
     {% endfor %}
@@ -24,5 +32,6 @@
     <tr class="{{ failedSize > 0 ? 'failure' : 'failed' }} first_failure">
         <td class="queue failed"><a href="{{ path('resque_failures') }}" class="queue">failed</a></td>
         <td class="size">{{ failedSize }}</td>
+        <td></td>
     </tr>
 </table>
