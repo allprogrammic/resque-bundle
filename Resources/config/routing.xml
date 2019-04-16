@@ -48,6 +48,10 @@
         <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\QueuesController::clearAction</default>
     </route>
 
+    <route id="resque_queues_delete" path="/queues/{id}/delete">
+        <default key="_controller">AllProgrammic\Bundle\ResqueBundle\Controller\QueuesController::deleteAction</default>
+    </route>
+
     <!-- Failures -->
 
     <route id="resque_failures" path="/failures/">

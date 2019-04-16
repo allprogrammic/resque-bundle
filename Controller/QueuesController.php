@@ -76,6 +76,18 @@ class QueuesController extends Controller
     }
 
     /**
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction($id)
+    {
+        $this->get('resque')->removeQueue($id);
+
+        return $this->redirectToRoute('resque_overview');
+    }
+
+    /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function queuesAction()
