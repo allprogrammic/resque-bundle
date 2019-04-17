@@ -5,11 +5,11 @@
 {% block content %}
     {{ render(controller('AllProgrammicResqueBundle:Chart:index')) }}
 
-    <div async-reload="true" async-action="{{ path('resque_queues_queues') }}" async-interval="10000">
+    <div async-reload="true" async-action="{{ path('resque_queues_queues') }}" async-interval="30000">
         <div class="loader"></div>
     </div>
     <hr/>
-    <div async-reload="true" async-action="{{ path('resque_working_working') }}" async-interval="10000">
+    <div async-reload="true" async-action="{{ path('resque_working_working') }}" async-interval="30000">
         <div class="loader"></div>
     </div>
 {% endblock %}

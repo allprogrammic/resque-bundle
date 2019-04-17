@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     chartsAction();
     asyncAction();
     toggleAction();
+    MicroModal.init();
 
     [].forEach.call(document.querySelectorAll('div[data-charts-async]'), function(el) {
         createChart(el, '{}');
@@ -106,6 +107,7 @@ var reloadContent = function(el) {
         if(request.readyState === 4) {
             if (request.status === 200) {
                 el.innerHTML = request.responseText;
+                MicroModal.init();
             }
         }
     };
