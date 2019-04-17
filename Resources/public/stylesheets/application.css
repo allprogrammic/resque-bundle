@@ -167,3 +167,5 @@ textarea {
     min-width: 100%;
     max-width: 100%;
 }
+
+.table>tbody>tr>td { vertical-align: middle;}
