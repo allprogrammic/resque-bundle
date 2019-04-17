@@ -14,9 +14,11 @@ namespace AllProgrammic\Bundle\ResqueBundle\Controller;
 use AllProgrammic\Bundle\ResqueBundle\Form\ImportType;
 use AllProgrammic\Bundle\ResqueBundle\Form\RecurringJobType;
 use AllProgrammic\Bundle\ResqueBundle\Pagination\Paginator;
+use AllProgrammic\Component\Resque\Engine;
 use AllProgrammic\Component\Resque\RecurringJob;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -32,10 +34,13 @@ class RecurringController extends Controller
      */
     public function indexAction(Request $request)
     {
+        /** @var $resque Engine */
+        $resque = $this->get('resque');
+
         $page = $request->query->get('page', 1);
 
         // Create new paginator
-        $pager = new Paginator($this->get('resque')->getRecurring());
+        $pager = new Paginator($resque->getRecurring());
         $jobs  = $pager
             ->setMaxPerPage(15)
             ->setCurrentPage($page)
@@ -55,7 +60,10 @@ class RecurringController extends Controller
      */
     public function historyAction(Request $request, $id)
     {
-        if (!$job = json_decode($this->get('resque')->getRecurringJob($id), true)) {
+        /** @var $resque Engine */
+        $resque = $this->get('resque');
+
+        if (!$job = json_decode($resque->getRecurringJob($id), true)) {
             throw new NotFoundHttpException('Unable to find recurring job');
         }
 
@@ -89,14 +97,21 @@ class RecurringController extends Controller
      */
     public function insertAction(Request $request)
     {
+        /** @var $resque Engine */
+        $resque = $this->get('resque');
+
         $form = $this->createCreateForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            if ($resque->existsRecurringJobs($form->getData()['name'])) {
+                $form->addError(new FormError('A recurring job with the same name already exists'));
+            }
+        }
 
-            // Add recurring job
-            $this->get('resque')->insertRecurringJobs($data);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $resque->insertRecurringJobs($data);
 
             if ($data['start'] === true) {
                 $this->createJob($data);
@@ -118,7 +133,10 @@ class RecurringController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        if (!$data = $this->get('resque')->getRecurringJob($id)) {
+        /** @var $resque Engine */
+        $resque = $this->get('resque');
+
+        if (!$data = $resque->getRecurringJob($id)) {
             throw new NotFoundHttpException('Unable to find recurring job');
         }
 
@@ -127,10 +145,17 @@ class RecurringController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($resque->existsRecurringJobs($form->getData()['name']) &&
+                $form->getData()['name'] !== $data['name']) {
+                $form->addError(new FormError('A recurring job with the same name already exists'));
+            }
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
             // Add recurring job
-            $this->get('resque')->updateRecurringJobs($id, $data);
+            $resque->updateRecurringJobs($id, $data);
 
             return $this->redirectToRoute('resque_recurring');
         }
@@ -148,11 +173,14 @@ class RecurringController extends Controller
      */
     public function removeAction(Request $request, $id)
     {
-        if (!$this->get('resque')->getRecurringJob($id)) {
+        /** @var $resque Engine */
+        $resque = $this->get('resque');
+
+        if (!$resque->getRecurringJob($id)) {
             throw new NotFoundHttpException('Unable to find recurring job');
         }
 
-        $this->get('resque')->removeRecurringJobs($id);
+        $resque->removeRecurringJobs($id);
 
         return $this->redirectToRoute('resque_recurring');
     }
@@ -166,11 +194,14 @@ class RecurringController extends Controller
      */
     public function startAction(Request $request, $id)
     {
-        if (!$job = $this->get('resque')->getRecurringJob($id)) {
+        /** @var $resque Engine */
+        $resque = $this->get('resque');
+
+        if (!$job = $resque->getRecurringJob($id)) {
             throw new NotFoundHttpException('Unable to find recurring job');
         }
 
-        $job  = json_decode($job, true);
+        $job = json_decode($job, true);
 
         if (isset($job['name'])) {
             $this->deleteRecurringJob($job);
@@ -189,7 +220,10 @@ class RecurringController extends Controller
      */
     public function createJob($data)
     {
-        return $this->get('resque')->enqueue($data['queue'], $data['class'], json_decode($data['args'], true));
+        /** @var $resque Engine */
+        $resque = $this->get('resque');
+
+        return $resque->enqueue($data['queue'], $data['class'], json_decode($data['args'], true));
     }
 
     /**
@@ -201,7 +235,10 @@ class RecurringController extends Controller
      */
     public function exportAction(Request $request)
     {
-        $data = $this->get('resque')->getRecurring()->peek(0, 0);
+        /** @var $resque Engine */
+        $resque = $this->get('resque');
+
+        $data = $resque->getRecurring()->peek(0, 0);
 
         // Provide a name for your file with extension
         $filename = sprintf('%s-%s.yml', 'resque_recurring_jobs', date('YmdHis'));
@@ -234,6 +271,9 @@ class RecurringController extends Controller
      */
     public function importAction(Request $request)
     {
+        /** @var $resque Engine */
+        $resque = $this->get('resque');
+
         $form = $this->createForm(ImportType::class);
         $form->add('submit', SubmitType::class, []);
         $form->handleRequest($request);
@@ -244,7 +284,7 @@ class RecurringController extends Controller
             $data = Yaml::parse(file_get_contents($path));
 
             foreach ($data as $key => $value) {
-                $this->get('resque')->insertRecurringJobs($value);
+                $resque->insertRecurringJobs($value);
             }
 
             return $this->redirectToRoute('resque_recurring');
@@ -263,14 +303,17 @@ class RecurringController extends Controller
      */
     public function enableAction(Request $request, $id)
     {
-        if (!$job = $this->get('resque')->getRecurringJob($id)) {
+        /** @var $resque Engine */
+        $resque = $this->get('resque');
+
+        if (!$job = $resque->getRecurringJob($id)) {
             throw new NotFoundHttpException('Unable to find recurring job');
         }
 
         $job = json_decode($job, true);
         $job['active'] = true;
 
-        $this->get('resque')->updateRecurringJobs($id, $job);
+        $resque->updateRecurringJobs($id, $job);
 
         return $this->redirectToRoute('resque_recurring');
     }
@@ -283,14 +326,17 @@ class RecurringController extends Controller
      */
     public function disableAction(Request $request, $id)
     {
-        if (!$job = $this->get('resque')->getRecurringJob($id)) {
+        /** @var $resque Engine */
+        $resque = $this->get('resque');
+
+        if (!$job = $resque->getRecurringJob($id)) {
             throw new NotFoundHttpException('Unable to find recurring job');
         }
 
         $job = json_decode($job, true);
         $job['active'] = false;
 
-        $this->get('resque')->updateRecurringJobs($id, $job);
+        $resque->updateRecurringJobs($id, $job);
 
         return $this->redirectToRoute('resque_recurring');
     }
@@ -303,7 +349,6 @@ class RecurringController extends Controller
     public function createCreateForm($data = null)
     {
         $form = $this->createForm(RecurringJobType::class, $data);
-
         $form->add('submit', SubmitType::class, [
             'label' => 'Save',
             'attr' => [
@@ -319,10 +364,13 @@ class RecurringController extends Controller
      */
     private function deleteRecurringJob($job)
     {
+        /** @var $resque Engine */
+        $resque = $this->get('resque');
+
         $key = sprintf('%s:%s', RecurringJob::KEY_RECURRING_JOBS, $job['name']);
 
-        if ($this->get('resque')->getBackend()->exists($key)) {
-            $this->get('resque')->getBackend()->del($key);
+        if ($resque->getBackend()->exists($key)) {
+            $resque->getBackend()->del($key);
         }
     }
 }
