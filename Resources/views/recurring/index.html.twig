@@ -30,7 +30,7 @@
             <th></th>
         </tr>
         {% for id, job in jobs %}
-            {{ include('@AllProgrammicResque/recurring/_recurring_job.html.twig', {id: id, job: job}, with_context=false) }}
+            {{ include('@AllProgrammicResque/recurring/_recurring_job.html.twig', {id: id + pager.currentFrom, job: job}, with_context=false) }}
         {% else %}
             <tr>
                 <td colspan="6" class="no-data">There is no recurring job right now...</td>

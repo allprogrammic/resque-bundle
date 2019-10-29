@@ -10,11 +10,22 @@
         {% endif %}
     </td>
     <td>
+        {{ task.queue|default }}
+    </td>
+    <td>
         <span class="label label-danger">{{ task.attempts }}</span>
+    </td>
+    <td>
+        {% set alert = task.alert|default(false) %}
+        {% if alert %}
+            <i class="glyphicon glyphicon-ok text-success"></i>
+        {% else %}
+            <i class="glyphicon glyphicon-ban-circle text-danger"></i>
+        {% endif %}
     </td>
     <td class="text-right">
         <a class="btn btn-sm btn-default" href="{{ path('resque_cleaner_edit', {id: id}) }}" title="Update">
-            Update
+            <i class="glyphicon glyphicon-pencil"></i> Edit
         </a>
         <a class="btn btn-sm btn-danger" href="{{ path('resque_cleaner_remove', {id: id}) }}" title="Remove">
             <i class="glyphicon glyphicon-trash"></i> Delete

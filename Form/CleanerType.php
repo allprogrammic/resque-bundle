@@ -40,11 +40,22 @@ class CleanerType extends AbstractType
                     'placeholder' => 'Define exception class or leave empty to catch all exceptions',
                 ],
             ])
+            ->add('queue', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'autocomplete' => 'off',
+                    'placeholder' => 'Define specific queue or leave empty to catch all queues',
+                ],
+            ])
             ->add('attempts', NumberType::class, [
                 'attr' => [
                     'autocomplete' => 'off',
                     'placeholder' => 'Define the number of attempts',
                 ],
+            ])
+            ->add('alert', CheckboxType::class, [
+                'label' => 'Enable mail alerts',
+                'required' => false
             ]);
     }
 }
