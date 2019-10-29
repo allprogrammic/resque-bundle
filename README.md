@@ -14,6 +14,22 @@ tasks_name:
     description: ~
 ```
 
+## Alertes
+
+N'oubliez pas d'inclure et configurer le bundle SwiftmailerBundle pour pouvoir utiliser les alertes
+
+```bash
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+    );
+
+    // ...
+}
+```
+
 ## Exécution
 
 Pour mettre en place vos tâches récurrentes, il vous suffit de précisier le fichier à utiliser lors de l'appel à la
