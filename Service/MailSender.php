@@ -75,6 +75,10 @@ class MailSender
             $template
         );
 
+        $data = array_merge($data, [
+            'subject' => $this->subject
+        ]);
+
         $message = (new \Swift_Message($this->subject))
             ->setFrom($this->from)
             ->setTo($this->to)

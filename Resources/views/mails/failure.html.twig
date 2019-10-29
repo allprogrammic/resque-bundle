@@ -1,5 +1,14 @@
 {% extends '@AllProgrammicResque/mails/base.html.twig' %}
 
 {% block content %}
-    TEST
+    <span style="font-weight:bold;">Date : </span> {{ failed_at.date|default('Failed at') }}<br/>
+    <span style="font-weight:bold;">Class : </span> {{ payload.class|default('Class') }}<br/>
+    <span style="font-weight:bold;">Exception : </span> {{ exception|default('Exception') }}<br/>
+    <span style="font-weight:bold;">Erreur : </span> {{ error|default('Error') }}<br/><br/>
+
+    {% if backtrace|default|length %}
+        {% for value in backtrace %}
+            {{ value }}<br/>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
