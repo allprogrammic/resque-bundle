@@ -103,9 +103,12 @@
             <tag name="console.command" command="resque:worker" />
         </service>
 
-        <service id="resque.service.mail_sender" class="AllProgrammic\Bundle\ResqueBundle\Service\MailSender">
+        <service id="resque.service.mail_sender" class="AllProgrammic\Bundle\ResqueBundle\Service\MailSender" public="true">
             <argument type="service" id="twig" />
             <argument type="service" id="mailer" on-invalid="null" />
+            <argument>%resque_alert_subject%</argument>
+            <argument>%resque_alert_from%</argument>
+            <argument>%resque_alert_to%</argument>
         </service>
     </services>
 </container>

@@ -11,6 +11,9 @@ use Twig\Environment;
  */
 class MailSender
 {
+    /**
+     * @var null|\Swift_Mailer
+     */
     private $mailer;
 
     /**
@@ -19,19 +22,33 @@ class MailSender
     private $twig;
 
     /**
+     * @var string
+     */
+    private $subject;
+
+    /**
+     * @var string
+     */
+    private $from;
+
+    /**
+     * @var string
+     */
+    private $to;
+
+    /**
      * MailSender constructor.
      *
      * @param $mailer
      * @param Environment $twig
      */
-    public function __construct(Environment $twig, $mailer = null)
+    public function __construct(Environment $twig, $mailer = null, $subject, $from, $to)
     {
-        dump($mailer);
-        dump($twig);
-        die();
-
         $this->mailer = $mailer;
         $this->twig = $twig;
+        $this->subject = $subject;
+        $this->from = $from;
+        $this->to = $to;
     }
 
     /**
@@ -42,24 +59,26 @@ class MailSender
      */
     private function renderView($template, $data)
     {
-        return $this->twig->renderView($template, $data);
+        return $this->twig->render($template, $data);
     }
 
     /**
-     * @return int
+     * @param $template
+     * @param array $data
+     *
+     * @return mixed
      */
-    public function send()
+    public function send($template, $data = array())
     {
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Hello Email')
-            ->setFrom('send@example.com')
-            ->setTo('recipient@example.com')
-            ->setBody(
-                $this->renderView('HelloBundle:Hello:email.txt.twig', array(
-                    'name' => $name
-                ))
-            )
-        ;
+        /** @var $template string */
+        $template = sprintf('@AllProgrammicResque/mails/%s.html.twig',
+            $template
+        );
+
+        $message = (new \Swift_Message($this->subject))
+            ->setFrom($this->from)
+            ->setTo($this->to)
+            ->setBody($this->renderView($template, $data), 'text/html');
 
         return $this->mailer->send($message);
     }
