@@ -37,6 +37,14 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('dsn')->isRequired()->end()
                     ->scalarNode('prefix')->defaultValue('resque:')->end()
                 ->end()
+            ->end()
+            ->arrayNode('alert')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('subject')->defaultValue('Resque Alert')->end()
+                    ->scalarNode('from')->defaultValue('sender@domain.com')->end()
+                    ->scalarNode('to')->defaultValue('recipient@domain.com')->end()
+                ->end()
             ->end();
 
         return $treeBuilder;

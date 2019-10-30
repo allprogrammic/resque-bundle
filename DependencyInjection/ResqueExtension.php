@@ -34,5 +34,8 @@ class ResqueExtension extends Extension
         $container->setParameter('resque_worker_sleeping', $config['worker']['sleeping']);
         $container->setParameter('resque_redis_dsn', $config['redis']['dsn']);
         $container->setParameter('resque_redis_prefix', $config['redis']['prefix']);
+        $container->setParameter('resque_alert_subject', $config['alert']['subject']);
+        $container->setParameter('resque_alert_from', $config['alert']['from']);
+        $container->setParameter('resque_alert_to', $config['alert']['to']);
     }
 }

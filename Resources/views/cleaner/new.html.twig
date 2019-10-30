@@ -3,7 +3,7 @@
 {% block link_cleaner_attr %} class="active"{% endblock %}
 
 {% block content %}
-    <h1>Insert new cleaner task</h1>
+    <h1>Insert new Retries & Alerts task</h1>
 
     {% form_theme form 'bootstrap_3_layout.html.twig' %}
     {{ form_start(form) }}
@@ -15,7 +15,9 @@
     </div>
 
     {{ form_row(form.exception) }}
+    {{ form_row(form.queue) }}
     {{ form_row(form.attempts) }}
+    {{ form_row(form.alert) }}
     {{ form_widget(form.submit) }}
 
     <div class="form-group">

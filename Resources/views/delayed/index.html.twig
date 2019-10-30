@@ -16,7 +16,7 @@
         <th></th>
     </tr>
     {% for id, job in jobs %}
-        {{ include('@AllProgrammicResque/delayed/_delayed_job.html.twig', {id: id, job: job}, with_context=false) }}
+        {{ include('@AllProgrammicResque/delayed/_delayed_job.html.twig', {id: id + pager.currentFrom, job: job}, with_context=false) }}
     {% else %}
         <tr>
             <td colspan="5" class="no-data">Nothing is delayed right now...</td>
