@@ -26,7 +26,7 @@
             <argument type="service" id="resque.charts" />
             <argument type="service" id="resque.lock_delayed" />
             <argument type="service" id="logger" on-invalid="null" />
-            <argument type="service" id="resque.service.mail_sender" on-invalid="null" />
+            <argument type="service" id="resque.service.mail_sender" />
         </service>
         <service id="resque" alias="AllProgrammic\Component\Resque\Engine" public="true" />
 
