@@ -2,6 +2,7 @@
 
 {% block content %}
     <p><strong>Date</strong><br/>{{ failed_at.date|default('Failed at') }}</p>
+    <p><strong>Worker</strong><br/>{{ worker|default('Worker') }}</p>
     <p><strong>Class</strong><br/>{{ payload.class|default('Class') }}</p>
     <p><strong>Exception</strong><br/>{{ exception|default('Exception') }}</p>
     <p><strong>Erreur</strong><br/>{{ error|default('Error') }}</p>
