@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "php": "^5.5.9 || ^7.0",
+    "php": "^5.5.9 || ^7.0 || ^8.0",
     "ext-redis": "*",
     "allprogrammic/redis-client": "1.0.x-dev",
     "allprogrammic/resque": "1.0.x-dev",
