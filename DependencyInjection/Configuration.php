@@ -22,7 +22,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('resque');
-        $nodeBuilder = $treeBuilder->root('resque')->addDefaultsIfNotSet()->children();
+        $nodeBuilder = $treeBuilder->addDefaultsIfNotSet()->children();
 
         $nodeBuilder
             ->arrayNode('worker')
