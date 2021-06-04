@@ -47,10 +47,5 @@
       "type": "vcs",
       "url": "git@github.com:GSOinteractive/resque.git"
     }
-  ],
-  "config": {
-    "github-oauth": {
-      "github.com": "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"
-    }
-  }
+  ]
 }
