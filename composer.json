@@ -1,9 +1,9 @@
 {
-  "name": "allprogrammic/resque-bundle",
+  "name": "gsoi/resque-bundle",
   "type": "symfony-bundle",
   "description": "Symfony ResqueBundle",
   "keywords": ["Asynchronous task management"],
-  "homepage": "http://github.com/allprogrammic/resque-bundle",
+  "homepage": "https://github.com/GSOinteractive/resque-bundle",
   "license": "MIT",
   "authors": [
     {
@@ -19,7 +19,7 @@
     "php": "^5.5.9 || ^7.0",
     "ext-redis": "*",
     "allprogrammic/redis-client": "1.0.x-dev",
-    "allprogrammic/resque": "1.0.x-dev",
+    "gsoi/resque": "1.0.x-dev",
     "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0",
     "symfony/twig-bundle": "^2.7 || ^3.0 || ^4.0",
     "twig/twig": "^1.28 || ^2.0",
@@ -40,6 +40,17 @@
     }
   },
   "support": {
-    "docs": "https://github.com/AllProgrammic/resque-bundle/wiki"
+    "docs": "https://github.com/GSOinteractive/resque-bundle/wiki"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:GSOinteractive/resque.git"
+    }
+  ],
+  "config": {
+    "github-oauth": {
+      "github.com": "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"
+    }
   }
 }
