@@ -31,6 +31,7 @@ class WorkersController extends Controller
             $results[$worker->getHost()][] = $worker;
         }
 
+        ksort($results, SORT_NATURAL | SORT_FLAG_CASE);
         return $this->render('@AllProgrammicResque/workers/index.html.twig', [
             'workers' => $results,
             'total'   => count($workers)
@@ -59,6 +60,17 @@ class WorkersController extends Controller
 
         $results = array_combine($workers, $results);
         $results = array_filter($results);
+        uasort($results, function (Worker $a, Worker $b) {
+            if ($a->isIdle() == $b->isIdle()) {
+                return strcmp($a->getHost(), $b->getHost());
+            } else {
+                if ($a->isIdle() && !$b->isIdle()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        });
 
         return $this->render('@AllProgrammicResque/workers/view.html.twig', [
             'workers'   => $results,

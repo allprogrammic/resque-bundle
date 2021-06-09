@@ -99,6 +99,7 @@ class QueuesController extends Controller
             $queues[$queue] = $resque->size($queue);
         }
 
+        ksort($queues, SORT_NATURAL | SORT_FLAG_CASE);
         return $this->render('@AllProgrammicResque/queues/_queues.html.twig', [
             'queues' => $queues,
             'failedSize' => $resque->getFailure()->count(),

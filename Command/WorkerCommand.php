@@ -224,7 +224,7 @@ class WorkerCommand extends Command
     private function createWorker($queues, $interval, $blocking, $pidfile, $cyclic)
     {
         if (is_null($this->logger)) {
-            throw new \RuntimeException('Could not get logger', $ex);
+            throw new \RuntimeException('Could not get logger');
         }
 
         $worker = new Worker(

@@ -23,7 +23,7 @@
                 <a href="#">{{ worker.host }}:{{ worker.pid }}</a>
             </td>
             <td class="queues queue">
-                {% for queue in worker.queues %}
+                {% for queue in worker.queues | sort %}
                     <a href="#" class="label label-info">{{ queue }}</a>
                 {% endfor %}
             </td>

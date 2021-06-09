@@ -69,7 +69,7 @@ class Paginator
     /**
      * @return int
      */
-    public function getCurrentPage(): int
+    public function getCurrentPage()
     {
         return $this->currentPage;
     }
@@ -77,7 +77,7 @@ class Paginator
     /**
      * @return int
      */
-    public function getCount(): int
+    public function getCount()
     {
         return $this->count;
     }
@@ -85,7 +85,7 @@ class Paginator
     /**
      * @return int
      */
-    public function getMaxPerPage(): int
+    public function getMaxPerPage()
     {
         return $this->maxPerPage;
     }
@@ -109,7 +109,7 @@ class Paginator
     /**
      * @param array $currentResults
      */
-    public function setCurrentResults(array $currentResults): void
+    public function setCurrentResults(array $currentResults)
     {
         $this->currentResults = $currentResults;
     }
@@ -117,7 +117,7 @@ class Paginator
     /**
      * @return array
      */
-    public function getCurrentResults(): array
+    public function getCurrentResults()
     {
         return $this->currentResults;
     }
