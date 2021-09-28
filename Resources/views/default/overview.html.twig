@@ -3,8 +3,6 @@
 {% block link_overview_attr %} class="active"{% endblock %}
 
 {% block content %}
-    {{ render(controller('AllProgrammicResqueBundle:Chart:index')) }}
-
     <div async-reload="true" async-action="{{ path('resque_queues_queues') }}" async-interval="30000">
         <div class="loader"></div>
     </div>

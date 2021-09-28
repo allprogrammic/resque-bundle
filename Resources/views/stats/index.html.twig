@@ -3,6 +3,8 @@
 {% block link_stats_attr %} class="active"{% endblock %}
 
 {% block content %}
+    {{ render(controller('AllProgrammicResqueBundle:Chart:index')) }}
+
     <h1 class="wi">Resque</h1>
     {{ render(controller('AllProgrammicResqueBundle:Stats:info')) }}
 
