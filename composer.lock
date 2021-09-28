@@ -219,12 +219,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GSOinteractive/resque.git",
-                "reference": "4436d8560381c2d2184fb649a45639cec7d6f551"
+                "reference": "4301b386dbf6deeed592b5e1694e2869fccec6c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GSOinteractive/resque/zipball/4436d8560381c2d2184fb649a45639cec7d6f551",
-                "reference": "4436d8560381c2d2184fb649a45639cec7d6f551",
+                "url": "https://api.github.com/repos/GSOinteractive/resque/zipball/4301b386dbf6deeed592b5e1694e2869fccec6c9",
+                "reference": "4301b386dbf6deeed592b5e1694e2869fccec6c9",
                 "shasum": ""
             },
             "require": {
@@ -274,7 +274,7 @@
                 "docs": "https://github.com/GSOinteractive/resque/wiki",
                 "source": "https://github.com/GSOinteractive/resque/tree/feat/replace-keys"
             },
-            "time": "2021-09-28T12:08:16+00:00"
+            "time": "2021-09-28T12:13:19+00:00"
         },
         {
             "name": "psr/cache",
