@@ -19,7 +19,7 @@
     "php": "^5.5.9 || ^7.0",
     "ext-redis": "*",
     "allprogrammic/redis-client": "1.0.x-dev",
-    "gsoi/resque": "1.0.x-dev",
+    "gsoi/resque": "dev-feat/replace-keys",
     "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0",
     "symfony/twig-bundle": "^2.7 || ^3.0 || ^4.0",
     "twig/twig": "^1.28 || ^2.0",
